@@ -1,6 +1,10 @@
-<svg host="65bd71144e" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="361px" height="211px" viewBox="-0.5 -0.5 361 211" content="&lt;mxfile&gt;&lt;diagram id=&quot;eEds5fUljeafLqugS4_2&quot; name=&quot;Page-1&quot;&gt;xZRNc4MgEEB/jTPtTSRNm2tM2h7aS51Oz4xuhBkQh5Cq/fWFsn6NzUxOyUn2scDuQ41oqtoXw2r+rguQURIXbUR3UZIQQlfu4UkXyNNmHUBpRIFJI8jEDyCMkZ5EAcdZotVaWlHPYa6rCnI7Y8wY3czTDlrOT61ZCQuQ5Uwu6ZcoLMcuHuKRv4IoeX8yiXFGsT4ZwZGzQjcTRPcRTY3WNoxUm4L08novYd3zmdmhMAOVvWRBEhZ8M3nC3hQTlSONqHxhoUjb9Z03XFjIapb7uHG3G9Ett0q6iLgh7gbGQnu2IjL06V4Q0Aqs6VxKv2CDarpBXoib0TTp9fGJ5TUyhpdbDluP/bsBKvhfB13o2Pq3BYyHApyP+O4gJNzfQMzj3MvQ7zW8rC7w8vnxdgstlFzPiwvHT/NvbvKDo/tf&lt;/diagram&gt;&lt;/mxfile&gt;">
+<svg host="65bd71144e" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="361px" height="211px" viewBox="-0.5 -0.5 361 211" content="&lt;mxfile&gt;&lt;diagram id=&quot;eEds5fUljeafLqugS4_2&quot; name=&quot;Page-1&quot;&gt;zZXfb5swEMf/mpO2lwkwIfAIhHaTtpdFVbdHN7hgCXDkOAH218+GcwiinbJVSichcfe984/7nA1A0rq7l3RffhM5q8Bz8g7IBjzPdYmvX0bpRyWMglEoJM8xaRK2/BdD0UH1yHN2mCUqISrF93NxJ5qG7dRMo1KKdp72LKr5qntasIWw3dFqqT7yXJVYxcqZ9M+MF6Vd2XUwUlObjMKhpLloLySSAUmlEGq06i5llYFnuYzj7l6JnjcmWaOuGbDCbaje1sZyXSq6jWj0KylVXWnP1eZyflzyII5yh1N42BIqC4ZZZJTM5BfDcE/3TNRMyV4nSFZRxU9zzhTbVZzzpoq0gUW9XGDwlwXqumT/QzvOJw0H/Z/Gt86mm3k9ev9Kxn8vMriXE62OOGlNeaOVljfmTHpBpbeYPEltFcaCLISQQJhCFkAUQXw3KBEkHmRa9yDyjBLrZwPZCuIMongIuRCt0YgDNEIfR4WJDTk22V10rS25Yts9HUi2+rNy5bk8MalY90eyNhrhnezPt3b02+mKu/belhfXO3De3gyyaEZiPlNMGpEz3Q3nwzOv2MdlWx6+zOm7pgHZGmIfkjP9aGJ9e7LrOdgzsFuA9a8A+/D96wtcH9nTAI3YQ0wgSRFjEv7vzIl7O+janf5YQ+ziv0+y3w==&lt;/diagram&gt;&lt;/mxfile&gt;">
     <defs/>
     <g>
+        <path d="M 156 60 L 87.98 145.03" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
+        <path d="M 84.7 149.13 L 86.34 141.47 L 87.98 145.03 L 91.8 145.85 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 202.5 60 L 266.18 144.91" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="stroke"/>
+        <path d="M 269.33 149.11 L 262.33 145.61 L 266.18 144.91 L 267.93 141.41 Z" fill="rgb(0, 0, 0)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
         <rect x="120" y="0" width="120" height="60" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" pointer-events="all"/>
         <g transform="translate(-0.5 -0.5)">
             <switch>
@@ -9,12 +13,14 @@
                         <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
                             <div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
                                 main window
+                                <br/>
+                                背景色を設定しているだけ
                             </div>
                         </div>
                     </div>
                 </foreignObject>
                 <text x="180" y="34" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="12px" text-anchor="middle">
-                    main window
+                    main window...
                 </text>
             </switch>
         </g>
@@ -26,12 +32,14 @@
                         <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
                             <div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
                                 Browser view (file)
+                                <br/>
+                                UIを表示する
                             </div>
                         </div>
                     </div>
                 </foreignObject>
                 <text x="60" y="184" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="12px" text-anchor="middle">
-                    Browser view (file)
+                    Browser view (file)...
                 </text>
             </switch>
         </g>
@@ -43,12 +51,14 @@
                         <div data-drawio-colors="color: rgb(0, 0, 0); " style="box-sizing: border-box; font-size: 0px; text-align: center;">
                             <div style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">
                                 Browser view (URL)
+                                <br/>
+                                Webページを表示する
                             </div>
                         </div>
                     </div>
                 </foreignObject>
                 <text x="300" y="184" fill="rgb(0, 0, 0)" font-family="Helvetica" font-size="12px" text-anchor="middle">
-                    Browser view (URL)
+                    Browser view (URL)...
                 </text>
             </switch>
         </g>

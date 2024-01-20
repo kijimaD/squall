@@ -96,14 +96,6 @@ function switchView(url: string) {
   mainWindow.setTopBrowserView(views[0]);
 }
 
-ipcMain.handle('tab1', e => {
-  switchView('google.com');
-});
-
-ipcMain.handle('tab2', e => {
-  switchView('amazon.com');
-});
-
-ipcMain.handle('hello', (name: string) => {
-  return "a";
+ipcMain.handle('changeTab', (e, arg) => {
+  switchView(arg.url);
 });
