@@ -1,3 +1,1 @@
-```
-npm run start
-```
+Squall is notification viewer!

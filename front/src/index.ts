@@ -20,7 +20,6 @@ const createWindow = (): void => {
     webPreferences: {
       // タブ領域の renderer プロセスから main プロセスにメッセージを送信するための contextBridge
       // preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
-      // 読み込めてない
       preload: path.join(__dirname, '../renderer/main_window/preload.js'),
     },
     frame: false,
