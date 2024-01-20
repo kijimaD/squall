@@ -21,7 +21,6 @@ const createWindow = (): void => {
     },
     frame: false,
   });
-  mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
   mainWindow.setBackgroundColor('gray');
   // mainWindow.webContents.openDevTools();
 
@@ -35,7 +34,8 @@ const createWindow = (): void => {
   {
     const view = new BrowserView();
     mainWindow.addBrowserView(view);
-    view.webContents.loadFile("dist/index.html");
+    view.webContents.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
+    view.setBackgroundColor('white');
     const bound = mainWindow.getBounds();
     view.setBounds({x: 0, y: 0, width: 180, height: bound.height});
   }
