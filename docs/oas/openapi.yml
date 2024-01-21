@@ -2,32 +2,27 @@
 openapi: "3.1.0"
 
 info:
-  x-logo:
-    url: https://upload.wikimedia.org/wikipedia/commons/7/7f/Rotating_earth_animated_transparent.gif?20201022124448
   description: |
-    ## develop
-    hello world
-      - list
-        - A
-        - B
+    SquallのAPIドキュメント
 
-  version: 1.0.1
-  title: API Docs
+  version: v0.0.1
+  title: Squall API Docs
   contact:
     name: kijimad
     email: norimaking777@gmail.com
 
 servers:
-  - url: http://localhost:6969
-    description: ローカル環境モック(Prism)
+  - url: http://localhost:8080
+    description: ローカル環境API
 
 tags:
-  - name: Pet
-    x-displayName: 🐶ペット
-    description: ペット
+  - name: Entry
+    x-displayName: 📜エントリ
+    description: 1つのURLで表されるページ
+  - name: Misc
+    x-displayName: 🔧その他
+    description: その他
 
 paths:
-  /pets:
-    $ref: "./paths/pets.yml#/pets"
-  /pets/{pet_id}:
-    $ref: "./paths/pet.yml#/pet"
+  /root:
+    $ref: "./paths/root.yml"

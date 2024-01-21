@@ -1,0 +1,88 @@
+MessageResponse:
+  type: object
+  properties:
+    code:
+      type: integer
+      description: HTTP status code
+    message:
+      type: string
+      description: HTTP status message
+  required:
+    - code
+    - message
+
+ErrorResponse:
+  type: object
+  properties:
+    errors:
+      type: array
+      description: エラー理由
+      items:
+        type: string
+  required:
+    - errors
+
+200OK:
+  description: 200 OK 操作が成功した
+  content:
+    application/json:
+      schema:
+        $ref: "#/MessageResponse"
+      example:
+        code: 200
+        message: OK
+
+202Accepted:
+  description: 202 Accepted リソースの作成に成功した
+  content:
+    application/json:
+      schema:
+        $ref: "#/MessageResponse"
+      example:
+        code: 202
+        message: Accepted
+
+401UnauthorizedError:
+  description: 401 Unauthorized 認証エラー
+  content:
+    application/json:
+      schema:
+        $ref: "#/MessageResponse"
+      example:
+        code: 401
+        message: Unauthorized
+
+400BadRequestError:
+  description: 400 Bad Request リクエストに不備があった
+  content:
+    application/json:
+      schema:
+        allOf:
+          - $ref: "#/MessageResponse"
+          - $ref: "#/ErrorResponse"
+      example:
+        code: 400
+        message: Bad Request
+        errors:
+          - "invalid ID"
+          - "ID名がかぶっている"
+
+404NotFoundError:
+  description: 404 Not Found リソースが見つからなかった
+  content:
+    application/json:
+      schema:
+        $ref: "#/MessageResponse"
+      example:
+        code: 404
+        message: Not Found
+
+500InternalServerError:
+  description: 500 Internal Server Error 不明なエラー
+  content:
+    application/json:
+      schema:
+        $ref: "#/MessageResponse"
+      example:
+        code: 500
+        message: Internal Server Error

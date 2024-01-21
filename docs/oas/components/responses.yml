@@ -1,8 +1,0 @@
-Pets:
-  type: array
-  description: ペット一覧
-  items:
-    properties:
-      id:
-        type: integer
-        description: pet ID
