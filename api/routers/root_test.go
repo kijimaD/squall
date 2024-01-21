@@ -17,7 +17,6 @@ func TestRoot(t *testing.T) {
 	req, rec := testhelper.MakeRequest(t,
 		http.MethodGet,
 		"/",
-		"",
 		nil,
 	)
 	r.ServeHTTP(rec, req)

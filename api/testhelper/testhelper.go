@@ -20,12 +20,9 @@ func ConvertToBody(t *testing.T, data interface{}) *strings.Reader {
 	return strings.NewReader(string(b))
 }
 
-func MakeRequest(t *testing.T, method, path, tokenStr string, body interface{}) (*http.Request, *httptest.ResponseRecorder) {
+func MakeRequest(t *testing.T, method string, path string, body interface{}) (*http.Request, *httptest.ResponseRecorder) {
 	t.Helper()
 	headers := map[string]string{}
-	if tokenStr != "" {
-		headers["Authorization"] = "Bearer " + tokenStr
-	}
 
 	var br io.Reader
 	if body != nil {
