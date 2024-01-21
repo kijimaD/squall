@@ -27,7 +27,7 @@ const config: ForgeConfig = {
             js: './src/renderer/index.tsx',
             name: 'main_window',
             preload: {
-              js: './src/preload.ts',
+              js: './src/electron/preload.ts',
             },
           },
         ],
