@@ -12,6 +12,9 @@ type ServerInterface interface {
 	// ヘルスチェック
 	// (GET /)
 	GetRoot(c *gin.Context)
+	// エントリ一覧
+	// (GET /entries)
+	GetEntries(c *gin.Context)
 }
 
 // ServerInterfaceWrapper converts contexts to parameters.
@@ -34,6 +37,19 @@ func (siw *ServerInterfaceWrapper) GetRoot(c *gin.Context) {
 	}
 
 	siw.Handler.GetRoot(c)
+}
+
+// GetEntries operation middleware
+func (siw *ServerInterfaceWrapper) GetEntries(c *gin.Context) {
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		middleware(c)
+		if c.IsAborted() {
+			return
+		}
+	}
+
+	siw.Handler.GetEntries(c)
 }
 
 // GinServerOptions provides options for the Gin server.
@@ -64,4 +80,5 @@ func RegisterHandlersWithOptions(router gin.IRouter, si ServerInterface, options
 	}
 
 	router.GET(options.BaseURL+"/", wrapper.GetRoot)
+	router.GET(options.BaseURL+"/entries", wrapper.GetEntries)
 }

@@ -26,3 +26,6 @@ tags:
 paths:
   /:
     $ref: "./paths/root.yml"
+
+  /entries:
+    $ref: "./paths/entries.yml"

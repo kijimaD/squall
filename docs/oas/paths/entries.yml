@@ -1,0 +1,15 @@
+get:
+  summary: エントリ一覧
+  description: エントリ一覧
+  operationId: getEntries
+  tags:
+    - Entry
+  responses:
+    '200':
+      description: 成功
+      content:
+        application/json:
+          schema:
+            $ref: "../components/schemas/Entry.yml#/GetEntriesResp"
+    default:
+      $ref: "../components/codes.yml#/500InternalServerError"
