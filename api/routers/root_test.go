@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"net/http"
 	"squall/config"
+	"squall/consts"
+	"squall/generated"
 	"squall/testhelper"
 
 	"testing"
@@ -19,11 +21,12 @@ func TestRoot(t *testing.T) {
 		nil,
 	)
 	r.ServeHTTP(rec, req)
+	assert.Equal(t, http.StatusOK, rec.Code)
 
-	var status statusResp
+	var status generated.GetRootResp
 	err := json.Unmarshal(rec.Body.Bytes(), &status)
 	assert.Nil(t, err)
 	assert.Equal(t, "live", status.Status)
-	assert.Equal(t, config.AppEnvTesting, status.Env)
-	assert.Equal(t, http.StatusOK, rec.Code)
+	assert.Equal(t, string(config.AppEnvTesting), status.Env)
+	assert.Equal(t, consts.AppVersion, status.Version)
 }

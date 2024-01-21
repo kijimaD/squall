@@ -4,6 +4,10 @@
 tbls: ## tblsを実行する
 	./scripts/tbls.sh
 
+.PHONY: gengo
+gengo: ## OpenAPI定義からGoコードを生成する
+	./scripts/gen-go-api.sh
+
 .PHONY: help
 help: ## ヘルプ表示
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
