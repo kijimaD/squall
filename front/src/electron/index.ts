@@ -86,8 +86,29 @@ app.on("activate", () => {
   }
 });
 
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and import them here.
+// IPCメインプロセスでのリクエストを待機
+ipcMain.handle("openNewView", (e, arg) => {
+  // debug
+  const id = createView("https://yahoo.com");
+  return id;
+});
+
+ipcMain.handle("changeTab", (e, arg) => {
+  switchView(arg.url);
+});
+
+function createView(url: string): int {
+  const view = new BrowserView({
+    webPreferences: {
+      preload: path.join(__dirname, "../renderer/main_window/preload.js"),
+    },
+  });
+  mainWindow.addBrowserView(view);
+  view.webContents.loadURL(url);
+  const bound = mainWindow.getBounds();
+  view.setBounds({ x: 200, y: 0, width: bound.width, height: bound.height });
+  return view.webContents.id;
+}
 
 function switchView(url: string) {
   const views = mainWindow
@@ -96,7 +117,3 @@ function switchView(url: string) {
   console.assert(views.length === 1);
   mainWindow.setTopBrowserView(views[0]);
 }
-
-ipcMain.handle("changeTab", (e, arg) => {
-  switchView(arg.url);
-});
