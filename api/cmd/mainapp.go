@@ -25,6 +25,7 @@ func NewMainApp() *cli.App {
 	app.DefaultCommand = CmdWeb.Name
 	app.Commands = []*cli.Command{
 		CmdWeb,
+		CmdSeed,
 	}
 
 	return app
