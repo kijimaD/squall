@@ -4,20 +4,15 @@ import (
 	"net/http"
 	"squall/config"
 	"squall/consts"
+	"squall/generated"
 
 	"github.com/gin-gonic/gin"
 )
 
-type statusResp struct {
-	Status  string            `json:"status"`
-	Env     config.AppEnvType `json:"env"`
-	Version string            `json:"version"`
-}
-
-func Roots(c *gin.Context) {
-	status := statusResp{
+func (bh *BaseHandler) GetRoot(c *gin.Context) {
+	status := generated.GetRootResp{
+		string(config.Config.AppEnv),
 		"live",
-		config.Config.AppEnv,
 		consts.AppVersion,
 	}
 	c.PureJSON(http.StatusOK, status)

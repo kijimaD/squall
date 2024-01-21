@@ -3,9 +3,12 @@ package helper
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"log/slog"
 	"net/http"
 
+	"github.com/getkin/kin-openapi/openapi3filter"
+	"github.com/getkin/kin-openapi/routers"
 	"github.com/gin-gonic/gin"
 	gosqlite "github.com/glebarez/go-sqlite"
 	"gorm.io/gorm"
@@ -21,8 +24,11 @@ func OKResponse(c *gin.Context) {
 }
 
 var (
-	errUnmarshallJSON *json.UnmarshalTypeError
-	errSQLite         *gosqlite.Error
+	errOpenapiRequest  *openapi3filter.RequestError
+	errOpenapiSecurity *openapi3filter.SecurityRequirementsError
+	errOpenapiRoute    *routers.RouteError
+	errUnmarshallJSON  *json.UnmarshalTypeError
+	errSQLite          *gosqlite.Error
 )
 
 var (
@@ -57,6 +63,10 @@ func ErrorResponse(c *gin.Context, err error) {
 		status = http.StatusBadRequest
 		message = "bad request"
 		errs = []string{err.Error()}
+	case errors.As(err, &errOpenapiRequest), errors.Is(err, openapi3filter.ErrInvalidEmptyValue), errors.Is(err, openapi3filter.ErrInvalidRequired):
+		status = http.StatusBadRequest
+		message = "bad request / oapi"
+		errs = []string{err.Error()}
 	case errors.As(err, &errUnmarshallJSON):
 		status = http.StatusBadRequest
 		message = "bad request / invalid JSON format"
@@ -74,6 +84,12 @@ func ErrorResponse(c *gin.Context, err error) {
 		default:
 			fallback()
 		}
+	case errors.As(err, &errOpenapiSecurity):
+		status = http.StatusForbidden
+		message = "forbidden / oapi"
+	case errors.As(err, &errOpenapiRoute):
+		status = http.StatusNotFound
+		message = fmt.Sprintf("not found / %s", err.Error())
 	case errors.Is(err, gorm.ErrRecordNotFound):
 		status = http.StatusNotFound
 		message = "not found / by ORM"

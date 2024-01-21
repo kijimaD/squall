@@ -8,7 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func GetEntries(c *gin.Context) {
+func (bh *BaseHandler) GetEntries(c *gin.Context) {
 	var es []models.Entry
 	err := getDB().Find(&es).Error
 	if err != nil {

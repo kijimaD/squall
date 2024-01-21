@@ -1,0 +1,31 @@
+---
+openapi: "3.1.0"
+
+info:
+  description: |
+    SquallのAPIドキュメント
+
+  version: v0.0.1
+  title: Squall API Docs
+  contact:
+    name: kijimad
+    email: norimaking777@gmail.com
+
+servers:
+  - url: http://localhost:8080
+    description: ローカル環境API
+
+tags:
+  - name: Entry
+    x-displayName: 📜エントリ
+    description: 1つのURLで表されるページ
+  - name: Misc
+    x-displayName: 🔧その他
+    description: その他
+
+paths:
+  /:
+    $ref: "./paths/root.yml"
+
+  /entries:
+    $ref: "./paths/entries.yml"

@@ -1,0 +1,32 @@
+Status:
+  type: string
+  description: サーバステータス。固定
+  minLength: 0
+  maxLength: 100
+
+Env:
+  type: string
+  description: 実行モード
+  minLength: 0
+  maxLength: 100
+
+Version:
+  type: string
+  description: APIバージョン
+  minLength: 0
+
+# ================
+
+GetRootResp:
+  type: object
+  required:
+    - status
+    - env
+    - version
+  properties:
+    status:
+      $ref: "#/Status"
+    env:
+      $ref: "#/Env"
+    version:
+      $ref: "#/Version"
