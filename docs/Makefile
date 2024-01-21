@@ -8,6 +8,10 @@ tbls: ## tblsを実行する
 gengo: ## OpenAPI定義からGoコードを生成する
 	./scripts/gen-go-api.sh
 
+.PHONY: gents
+gents: ## OpenAPI定義からTypeScriptコードを生成する
+	./scripts/gen-ts-front.sh
+
 .PHONY: help
 help: ## ヘルプ表示
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
