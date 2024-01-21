@@ -7,7 +7,7 @@ set -eux
 
 cd `dirname $0`
 
-mkdir -p ../../front/src/generated
+mkdir -p ../../front/src/renderer/generated
 
 docker run --rm \
        -v $PWD/../..:/work \
@@ -15,4 +15,4 @@ docker run --rm \
        openapitools/openapi-generator-cli:latest-release generate \
          -i /work/docs/oas/openapi.yml \
          -g typescript-axios \
-         -o /work/front/src/generated
+         -o /work/front/src/renderer/generated
