@@ -1,0 +1,47 @@
+version: '3.7'
+
+services:
+  # API Docs ================
+  # 定義ファイルからドキュメントを表示する
+  redoc:
+    image: redocly/redoc
+    volumes:
+      - ./oas/merge.yml:/usr/share/nginx/html/merge.yml
+    environment:
+      - 'SPEC_URL=merge.yml'
+    ports:
+      - 7777:80
+    depends_on:
+      - merger
+
+  # redoc用に、openapi定義ファイルを1ファイルにして出力する(one shot)
+  merger:
+    image: redocly/cli:1.4.1
+    volumes:
+      - ./oas:/work
+    working_dir: /work
+    command: bundle openapi.yml -o merge.yml
+
+  # DB docs ================
+
+  # tblsで出力したmarkdownを配信する
+  dbschema:
+    build:
+      context: .
+      target: mdbook
+    volumes:
+      - ./dbschema:/work
+    working_dir: /work
+    command: mdbook serve --hostname 0.0.0.0
+    ports:
+      - 7778:3000
+
+  # tblsで生成されたファイル群の、summaryファイルを生成する(one shot)
+  summary:
+    build:
+      context: .
+      target: mdbook
+    volumes:
+      - ./dbschema:/work
+    working_dir: /work
+    command: book-summary -y

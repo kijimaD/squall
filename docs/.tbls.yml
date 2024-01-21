@@ -1,0 +1,41 @@
+# dsnは実行時に環境変数で指定する
+# 接続先。データベースの種類(`mysql`)、ユーザ名(`dbuser`)、パスワード(`dbpass`)、ホスト名(`localhost`)、ポート(`3306`)、データベース名(`dbname`)
+# dsn: postgres://root:root@postgres:5432/dbname?sslmode=disable --force
+
+# docPathは実行時に環境変数で指定する
+# ドキュメントのディレクトリ指定
+# docPath: dbschema
+
+name: Squall
+
+format:
+  # Sort the order of table list and columns
+  sort: true
+
+er:
+  # ER diagram image format
+  # format: mermaid
+
+lint:
+  requiredTableComment:
+    enabled: true
+  requireColumnComment:
+    enabled: true
+    exclude:
+      - id
+      - created_at
+      - updated_at
+      - deleted_at
+  requireIndexComment:
+    enabled: false
+
+# ================
+
+comments:
+  - table: entries
+    tableComment: |
+      RSSなどの情報源から取得した、1つのURLを持つWebページ。
+    columnComments:
+      url: エントリのURL
+      title: エントリの内容が何か人が識別できる名前
+      is_done: 既読かどうか
