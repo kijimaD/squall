@@ -10,7 +10,7 @@ import (
 // ServerInterface represents all server handlers.
 type ServerInterface interface {
 	// ヘルスチェック
-	// (GET /root)
+	// (GET /)
 	GetRoot(c *gin.Context)
 }
 
@@ -63,5 +63,5 @@ func RegisterHandlersWithOptions(router gin.IRouter, si ServerInterface, options
 		ErrorHandler:       errorHandler,
 	}
 
-	router.GET(options.BaseURL+"/root", wrapper.GetRoot)
+	router.GET(options.BaseURL+"/", wrapper.GetRoot)
 }

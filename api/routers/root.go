@@ -9,7 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func Roots(c *gin.Context) {
+func (bh *BaseHandler) GetRoot(c *gin.Context) {
 	status := generated.GetRootResp{
 		string(config.Config.AppEnv),
 		"live",
