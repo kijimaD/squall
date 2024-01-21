@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * Squall API Docs
- * SquallのAPIドキュメント 
+ * SquallのAPIドキュメント
  *
  * The version of the OpenAPI document: v0.0.1
  * Contact: norimaking777@gmail.com
@@ -12,7 +12,5 @@
  * Do not edit the class manually.
  */
 
-
 export * from "./api";
 export * from "./configuration";
-
