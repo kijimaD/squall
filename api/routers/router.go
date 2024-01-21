@@ -36,6 +36,7 @@ func NewRouter() (*gin.Engine, error) {
 	r.Use(sloggin.NewWithConfig(l, config))
 
 	r.GET("/", Roots)
+	r.GET("/entries", GetEntries)
 
 	return r, nil
 }

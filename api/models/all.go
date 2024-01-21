@@ -1,3 +1,5 @@
 package models
 
-var All = []any{}
+var All = []any{
+	Entry{},
+}

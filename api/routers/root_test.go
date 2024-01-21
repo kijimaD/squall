@@ -12,7 +12,6 @@ import (
 )
 
 func TestRoot(t *testing.T) {
-	t.Parallel()
 	r, _ := NewRouter()
 	req, rec := testhelper.MakeRequest(t,
 		http.MethodGet,
