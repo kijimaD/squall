@@ -1,6 +1,7 @@
 import { Container, Grid, Paper, Button } from "@mui/material";
 import { HeaderLogo } from "./HeaderLogo";
 import { EntryButton } from "./EntryButton";
+import { Counter } from "./Counter";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 export const SideMenu = () => {
@@ -33,6 +34,7 @@ export const SideMenu = () => {
           </Grid>
         </Grid>
       </Container>
+      <Counter />
     </Container>
   );
 };
