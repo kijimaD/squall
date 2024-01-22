@@ -3,12 +3,17 @@ import { HeaderLogo } from "./HeaderLogo";
 import { EntryButton } from "./EntryButton";
 import { Counter } from "./Counter";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import { useDispatch, useSelector } from "react-redux";
+import { View, add } from "../redux/viewSlice";
 
 export const SideMenu = () => {
+  const viewIds = useSelector((state) => state.view.ids);
+  const dispatch = useDispatch();
+
   const newView = async () => {
     try {
       const id = await window.myAPI.invoke("openNewView", {});
-      console.log(id);
+      dispatch(add([id]));
     } catch (error) {
       console.error("error:", error.message);
     }
@@ -31,6 +36,9 @@ export const SideMenu = () => {
             <EntryButton title="Home" url="main_window" />
             <EntryButton title="Google" url="google.com" />
             <EntryButton title="Amazon" url="amazon.com" />
+            {viewIds.map((v, i) => {
+              return <p>{v}</p>;
+            })}
           </Grid>
         </Grid>
       </Container>
