@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { View, add } from "../redux/viewSlice";
 
 export const SideMenu = () => {
-  const viewIds = useSelector((state) => state.view.ids);
+  const views = useSelector((state) => state.view.views);
   const dispatch = useDispatch();
 
   const newView = async () => {
@@ -36,8 +36,8 @@ export const SideMenu = () => {
             <EntryButton title="Home" url="main_window" />
             <EntryButton title="Google" url="google.com" />
             <EntryButton title="Amazon" url="amazon.com" />
-            {viewIds.map((v, i) => {
-              return <p>{v}</p>;
+            {views.map((v, i) => {
+              return <p>{v.viewId}</p>;
             })}
           </Grid>
         </Grid>
