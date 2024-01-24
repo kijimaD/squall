@@ -41,33 +41,14 @@ const createWindow = (): void => {
       },
     });
     mainWindow.addBrowserView(view);
-    view.webContents.loadURL("https://google.com");
+    view.webContents.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
+    view.setBackgroundColor("white");
     const bound = mainWindow.getBounds();
-    view.setBounds({ x: 200, y: 0, width: bound.width, height: bound.height });
-  }
-  {
-    const view = new BrowserView({
-      webPreferences: {
-        preload: path.join(__dirname, "../renderer/main_window/preload.js"),
-      },
+    view.setBounds({ x: 0, y: 0, width: 1080, height: bound.height });
+    view.webContents.openDevTools();
+    view.webContents.on("dom-ready", () => {
+      uiWindow = view;
     });
-    mainWindow.addBrowserView(view);
-    view.webContents.loadURL("https://amazon.com");
-    const bound = mainWindow.getBounds();
-    view.setBounds({ x: 200, y: 0, width: bound.width, height: bound.height });
-  }
-  {
-    uiWindow = new BrowserView({
-      webPreferences: {
-        preload: path.join(__dirname, "../renderer/main_window/preload.js"),
-      },
-    });
-    mainWindow.addBrowserView(uiWindow);
-    uiWindow.webContents.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
-    uiWindow.setBackgroundColor("white");
-    const bound = mainWindow.getBounds();
-    uiWindow.setBounds({ x: 0, y: 0, width: 1080, height: bound.height });
-    uiWindow.webContents.openDevTools();
   }
 };
 
@@ -94,14 +75,18 @@ app.on("activate", () => {
 });
 
 // IPCメインプロセスでのリクエストを待機
-ipcMain.handle("openNewView", (e, url) => {
+ipcMain.handle("openNewView", (e, arg) => {
   // debug
-  const id = createView(url);
+  const id = createView(arg.url);
   return id;
 });
 
 ipcMain.handle("changeTab", (e, arg) => {
-  switchView(arg.url);
+  switchView(arg.id);
+});
+
+ipcMain.handle("changeHome", (e, arg) => {
+  switchView(uiWindow.webContents.id);
 });
 
 ipcMain.handle("getTitleById", (e, arg) => {
@@ -129,10 +114,10 @@ function createView(url: string): number {
   return view.webContents.id;
 }
 
-function switchView(url: string) {
+function switchView(id: number) {
   const views = mainWindow
     .getBrowserViews()
-    .filter((view) => view.webContents.getURL().includes(url));
+    .filter((view) => view.webContents.id.toString().includes(id));
   console.assert(views.length === 1);
   mainWindow.setTopBrowserView(views[0]);
 }

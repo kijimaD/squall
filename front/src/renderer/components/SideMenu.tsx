@@ -13,7 +13,7 @@ export const SideMenu = () => {
 
   const newView = async () => {
     try {
-      const id = await window.myAPI.invoke("openNewView", inputUrl);
+      const id = await window.myAPI.invoke("openNewView", { url: inputUrl });
       const v: View = { viewId: id };
       dispatch(add(v));
     } catch (error) {
@@ -50,15 +50,18 @@ export const SideMenu = () => {
               <AddCircleOutlineIcon />
               new
             </Button>
-            <EntryButton title="Home" url="main_window" />
-            <EntryButton title="Google" url="google.com" />
-            <EntryButton title="Amazon" url="amazon.com" />
+            <br />
+            <Button
+              color="black"
+              style={{ justifyContent: "flex-start" }}
+              onClick={() => {
+                window.myAPI.invoke("changeHome", {});
+              }}
+            >
+              Home
+            </Button>
             {views.map((v, i) => {
-              return (
-                <p>
-                  {v.viewId} {v.title}
-                </p>
-              );
+              return <EntryButton id={v.viewId} title={v.title} />;
             })}
           </Grid>
         </Grid>
