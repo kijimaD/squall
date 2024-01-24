@@ -1,12 +1,12 @@
 import { Grid, Button } from "@mui/material";
 
 type Props = {
+  id: number;
   title: string;
-  url: string;
 };
 
 export const EntryButton = (props: Props) => {
-  const { url } = props;
+  const { id } = props;
   const { title } = props;
 
   return (
@@ -16,7 +16,7 @@ export const EntryButton = (props: Props) => {
           color="black"
           style={{ justifyContent: "flex-start" }}
           onClick={() => {
-            window.myAPI.invoke("changeTab", { url: url });
+            window.myAPI.invoke("changeTab", { id: id });
           }}
         >
           {title}

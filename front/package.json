@@ -45,8 +45,10 @@
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.15.5",
     "@mui/material": "^5.15.5",
+    "@reduxjs/toolkit": "^2.0.1",
     "@types/react": "^18.2.48",
     "electron-squirrel-startup": "^1.0.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-redux": "^9.1.0"
   }
 }
