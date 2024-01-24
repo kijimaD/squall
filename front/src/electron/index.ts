@@ -94,9 +94,9 @@ app.on("activate", () => {
 });
 
 // IPCメインプロセスでのリクエストを待機
-ipcMain.handle("openNewView", (e, arg) => {
+ipcMain.handle("openNewView", (e, url) => {
   // debug
-  const id = createView("https://yahoo.com");
+  const id = createView(url);
   return id;
 });
 

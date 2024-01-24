@@ -5,7 +5,7 @@ import { Counter } from "./Counter";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { useDispatch, useSelector } from "react-redux";
 import { View, add, update } from "../redux/viewSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export const SideMenu = () => {
   const views = useSelector((state) => state.view.views);
@@ -13,7 +13,7 @@ export const SideMenu = () => {
 
   const newView = async () => {
     try {
-      const id = await window.myAPI.invoke("openNewView", {});
+      const id = await window.myAPI.invoke("openNewView", inputUrl);
       const v: View = { viewId: id };
       dispatch(add(v));
     } catch (error) {
@@ -30,12 +30,18 @@ export const SideMenu = () => {
     });
   }, []);
 
+  const [inputUrl, setInputUrl] = useState("https://github.com");
+
   return (
     <Container>
       <HeaderLogo />
       <Container maxWidth="lg" sx={{ mt: 2, mb: 2 }} className="container">
         <Grid container direction="row" spacing={2}>
           <Grid item xs={12} sm={6} spacing={1}>
+            <input
+              value={inputUrl}
+              onChange={(e) => setInputUrl(e.target.value)}
+            />
             <Button
               color="black"
               style={{ justifyContent: "flex-start" }}
@@ -43,14 +49,6 @@ export const SideMenu = () => {
             >
               <AddCircleOutlineIcon />
               new
-            </Button>
-            <Button
-              color="black"
-              style={{ justifyContent: "flex-start" }}
-              onClick={() => {}}
-            >
-              <AddCircleOutlineIcon />
-              load
             </Button>
             <EntryButton title="Home" url="main_window" />
             <EntryButton title="Google" url="google.com" />
