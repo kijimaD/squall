@@ -121,7 +121,10 @@ function createView(url: string): number {
   view.setBounds({ x: 200, y: 0, width: bound.width, height: bound.height });
   view.webContents.on("dom-ready", () => {
     // ページの読み込みが完了したらRendererプロセスにメッセージを送信
-    uiWindow.webContents.send("pageLoaded", [view.webContents.id, view.webContents.getTitle()]);
+    uiWindow.webContents.send("pageLoaded", [
+      view.webContents.id,
+      view.webContents.getTitle(),
+    ]);
   });
   return view.webContents.id;
 }

@@ -4,7 +4,7 @@ import { EntryButton } from "./EntryButton";
 import { Counter } from "./Counter";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { useDispatch, useSelector } from "react-redux";
-import { View, add } from "../redux/viewSlice";
+import { View, add, update } from "../redux/viewSlice";
 import { useEffect } from "react";
 
 export const SideMenu = () => {
@@ -14,18 +14,19 @@ export const SideMenu = () => {
   const newView = async () => {
     try {
       const id = await window.myAPI.invoke("openNewView", {});
-      const title = await window.myAPI.invoke("getTitleById", { id });
-      dispatch(add([id, title]));
+      const v: View = { viewId: id };
+      dispatch(add(v));
     } catch (error) {
       console.error("error:", error.message);
     }
   };
 
   useEffect(() => {
-    console.log("useEffectが実行された(on登録)");
-    // ipcRendererからメッセージを受信
     window.myAPI.on("pageLoaded", (arg) => {
-      console.log("メッセージ受信:", arg);
+      const id = arg[0];
+      const title = arg[1];
+      const v: View = { viewId: id, title: title };
+      dispatch(update(v));
     });
   }, []);
 

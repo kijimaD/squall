@@ -8,4 +8,3 @@ export const store = configureStore({
     view: viewReducer,
   },
 });
-4;

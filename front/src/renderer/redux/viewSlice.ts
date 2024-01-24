@@ -11,16 +11,19 @@ export const viewSlice = createSlice({
     views: [] as View[],
   },
   reducers: {
-    // id
     add: (state, action) => {
-      const id: number = action.payload[0];
-      const title: string = action.payload[1];
-      const v: View = { viewId: id, title: title };
-      state.views.push(v);
+      state.views.push(action.payload);
+    },
+    update: (state, action) => {
+      state.views.forEach((v, i) => {
+        if (action.payload.viewId == v.viewId) {
+          state.views[i] = action.payload;
+        }
+      });
     },
   },
 });
 
-export const { add } = viewSlice.actions;
+export const { add, update } = viewSlice.actions;
 
 export default viewSlice.reducer;
