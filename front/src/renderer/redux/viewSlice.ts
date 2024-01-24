@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export type View = {
-  viewId: number,
-}
+  viewId: number;
+  title: string;
+};
 
 export const viewSlice = createSlice({
   name: "view",
@@ -12,8 +13,9 @@ export const viewSlice = createSlice({
   reducers: {
     // id
     add: (state, action) => {
-      const id = action.payload[0];
-      const v: View = {viewId: id};
+      const id: number = action.payload[0];
+      const title: string = action.payload[1];
+      const v: View = { viewId: id, title: title };
       state.views.push(v);
     },
   },
