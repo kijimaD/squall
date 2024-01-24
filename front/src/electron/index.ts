@@ -18,7 +18,11 @@ if (require("electron-squirrel-startup")) {
 }
 
 let mainWindow: any;
-let uiWindow: any;
+// UIを表示しているview
+let uiView: any;
+// 最も上にあって表示中のview
+// viewをウィンドウに追加したときにそのviewに表示が切り替わってしまうので、記録しておいて戻すのに使う
+let topView: any;
 
 const createWindow = (): void => {
   mainWindow = new BrowserWindow({
@@ -32,8 +36,6 @@ const createWindow = (): void => {
     frame: false,
   });
   mainWindow.setBackgroundColor("gray");
-  // mainWindow.webContents.openDevTools();
-
   {
     const view = new BrowserView({
       webPreferences: {
@@ -46,9 +48,8 @@ const createWindow = (): void => {
     const bound = mainWindow.getBounds();
     view.setBounds({ x: 0, y: 0, width: 1080, height: bound.height });
     view.webContents.openDevTools();
-    view.webContents.on("dom-ready", () => {
-      uiWindow = view;
-    });
+    uiView = view;
+    topView = view;
   }
 };
 
@@ -86,7 +87,7 @@ ipcMain.handle("changeTab", (e, arg) => {
 });
 
 ipcMain.handle("changeHome", (e, arg) => {
-  switchView(uiWindow.webContents.id);
+  switchView(uiView.webContents.id);
 });
 
 ipcMain.handle("getTitleById", (e, arg) => {
@@ -101,12 +102,13 @@ function createView(url: string): number {
     },
   });
   mainWindow.addBrowserView(view);
+  mainWindow.setTopBrowserView(topView); // 新しく追加されたviewを表示しないように切り替える
   view.webContents.loadURL(url);
   const bound = mainWindow.getBounds();
-  view.setBounds({ x: 200, y: 0, width: bound.width, height: bound.height });
+  view.setBounds({ x: 300, y: 0, width: bound.width, height: bound.height });
   view.webContents.on("dom-ready", () => {
     // ページの読み込みが完了したらRendererプロセスにメッセージを送信
-    uiWindow.webContents.send("pageLoaded", [
+    uiView.webContents.send("pageLoaded", [
       view.webContents.id,
       view.webContents.getTitle(),
     ]);
@@ -117,9 +119,10 @@ function createView(url: string): number {
 function switchView(id: number) {
   const views = mainWindow
     .getBrowserViews()
-    .filter((view) => view.webContents.id.toString().includes(id));
+    .filter((view) => view.webContents.id == id);
   console.assert(views.length === 1);
   mainWindow.setTopBrowserView(views[0]);
+  topView = views[0];
 }
 
 function getViewTitle(id: number): string {
