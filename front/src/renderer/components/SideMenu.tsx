@@ -1,7 +1,6 @@
 import { Container, Grid, Paper, Button } from "@mui/material";
 import { HeaderLogo } from "./HeaderLogo";
 import { EntryButton } from "./EntryButton";
-import { Counter } from "./Counter";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { useDispatch, useSelector } from "react-redux";
 import { View, add, update } from "../redux/viewSlice";
@@ -66,7 +65,6 @@ export const SideMenu = () => {
           </Grid>
         </Grid>
       </Container>
-      <Counter />
     </Container>
   );
 };
