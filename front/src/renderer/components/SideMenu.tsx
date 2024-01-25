@@ -15,6 +15,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch, useSelector } from "react-redux";
 import { View, add, update, remove } from "../redux/viewSlice";
 import { useEffect, useState } from "react";
+import { useEntries } from "../hooks/api/entry";
 
 export const SideMenu = () => {
   const views = useSelector((state) => state.view.views);

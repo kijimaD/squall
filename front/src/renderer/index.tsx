@@ -32,7 +32,9 @@ const queryClient = new QueryClient({
     },
   },
   queryCache: new QueryCache({
-    onError: (error) => {},
+    onError: (error) => {
+      console.log(error);
+    },
   }),
 });
 

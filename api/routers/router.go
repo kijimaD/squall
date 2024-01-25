@@ -14,6 +14,7 @@ import (
 
 	"github.com/getkin/kin-openapi/openapi3filter"
 	"github.com/getkin/kin-openapi/routers/gorillamux"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	sloggin "github.com/samber/slog-gin"
 )
@@ -46,6 +47,13 @@ func NewRouter() (*gin.Engine, error) {
 	}
 	l = l.With("logtype", "resplog")
 	r.Use(sloggin.NewWithConfig(l, config))
+
+	r.Use(cors.New(cors.Config{
+		// アクセスを許可したいアクセス元
+		AllowOrigins: []string{
+			"http://localhost:3000",
+		},
+	}))
 
 	generated.RegisterHandlersWithOptions(
 		r,
