@@ -40,6 +40,7 @@ export const SideMenu = () => {
   }, []);
 
   const [inputUrl, setInputUrl] = useState("https://github.com");
+  const [reqCount, setReqCount] = useState(0);
 
   return (
     <Container>
@@ -47,22 +48,35 @@ export const SideMenu = () => {
       <Container maxWidth="lg" sx={{ mt: 2, mb: 2 }} className="container">
         <Grid container direction="row" spacing={2}>
           <Grid item xs={12} sm={6} spacing={1}>
-            <TextField
-              defaultValue={inputUrl}
-              onChange={(e) => setInputUrl(e.target.value)}
-              size="small"
-            />
-            <Button
-              color="black"
-              style={{ justifyContent: "flex-start" }}
-              onClick={() => newView()}
-            >
-              <SearchIcon />
-              Go
-            </Button>
+            <Container>
+              <TextField
+                defaultValue={inputUrl}
+                onChange={(e) => setInputUrl(e.target.value)}
+                size="small"
+              />
+              <Button
+                color="black"
+                style={{ justifyContent: "flex-start" }}
+                onClick={() => newView()}
+              >
+                <SearchIcon />
+                Go
+              </Button>
+            </Container>
+
+            <Container>
+              <TextField
+                defaultValue={reqCount}
+                onChange={(e) => setReqCount(e.target.value)}
+                size="small"
+                type="number"
+              />
+              <Button color="black">Load</Button>
+            </Container>
+
             <ListItemButton>
               <Button>
-                <HomeIcon fontSize="small"/>
+                <HomeIcon fontSize="small" />
               </Button>
               <ListItemText
                 primary="Home"
