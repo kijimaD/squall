@@ -1,9 +1,19 @@
-import { Container, Grid, Paper, Button } from "@mui/material";
+import {
+  Container,
+  Grid,
+  Paper,
+  Button,
+  TextField,
+  ListItemButton,
+  ListItemText,
+} from "@mui/material";
 import { HeaderLogo } from "./HeaderLogo";
 import { EntryButton } from "./EntryButton";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import HomeIcon from "@mui/icons-material/Home";
+import SearchIcon from "@mui/icons-material/Search";
+import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch, useSelector } from "react-redux";
-import { View, add, update } from "../redux/viewSlice";
+import { View, add, update, remove } from "../redux/viewSlice";
 import { useEffect, useState } from "react";
 
 export const SideMenu = () => {
@@ -37,17 +47,18 @@ export const SideMenu = () => {
       <Container maxWidth="lg" sx={{ mt: 2, mb: 2 }} className="container">
         <Grid container direction="row" spacing={2}>
           <Grid item xs={12} sm={6} spacing={1}>
-            <input
-              value={inputUrl}
+            <TextField
+              defaultValue={inputUrl}
               onChange={(e) => setInputUrl(e.target.value)}
+              size="small"
             />
             <Button
               color="black"
               style={{ justifyContent: "flex-start" }}
               onClick={() => newView()}
             >
-              <AddCircleOutlineIcon />
-              new
+              <SearchIcon />
+              Go
             </Button>
             <br />
             <Button
@@ -57,10 +68,28 @@ export const SideMenu = () => {
                 window.myAPI.invoke("changeHome", {});
               }}
             >
+              <HomeIcon />
               Home
             </Button>
             {views.map((v, i) => {
-              return <EntryButton id={v.viewId} title={v.title} />;
+              return (
+                <ListItemButton>
+                  <Button
+                    onClick={() => {
+                      window.myAPI.invoke("removeView", { id: v.viewId });
+                      dispatch(remove(v.viewId));
+                    }}
+                  >
+                    <CloseIcon />
+                  </Button>
+                  <ListItemText
+                    primary={v.title}
+                    onClick={() => {
+                      window.myAPI.invoke("changeTab", { id: v.viewId });
+                    }}
+                  />
+                </ListItemButton>
+              );
             })}
           </Grid>
         </Grid>

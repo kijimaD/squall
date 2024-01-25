@@ -90,6 +90,10 @@ ipcMain.handle("changeHome", (e, arg) => {
   switchView(uiView.webContents.id);
 });
 
+ipcMain.handle("removeView", (e, arg) => {
+  removeView(arg.id);
+});
+
 ipcMain.handle("getTitleById", (e, arg) => {
   const title = getViewTitle(arg.id);
   return title;
@@ -104,6 +108,7 @@ function createView(url: string): number {
   mainWindow.addBrowserView(view);
   mainWindow.setTopBrowserView(topView); // 新しく追加されたviewを表示しないように切り替える
   view.webContents.loadURL(url);
+  view.setBackgroundColor("white"); // これがないと、ページによってはスケルトンになる
   const bound = mainWindow.getBounds();
   view.setBounds({ x: 300, y: 0, width: bound.width, height: bound.height });
   view.webContents.on("dom-ready", () => {
@@ -123,6 +128,16 @@ function switchView(id: number) {
   console.assert(views.length === 1);
   mainWindow.setTopBrowserView(views[0]);
   topView = views[0];
+}
+
+function removeView(id: number) {
+  const views = mainWindow
+    .getBrowserViews()
+    .filter((view) => view.webContents.id == id);
+  console.assert(views.length === 1);
+  // topViewが削除済みのものになるのを防ぐ
+  mainWindow.removeBrowserView(views[0]);
+  topView = mainWindow.getBrowserViews()[0];
 }
 
 function getViewTitle(id: number): string {
