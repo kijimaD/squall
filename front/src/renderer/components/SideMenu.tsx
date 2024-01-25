@@ -60,17 +60,17 @@ export const SideMenu = () => {
               <SearchIcon />
               Go
             </Button>
-            <br />
-            <Button
-              color="black"
-              style={{ justifyContent: "flex-start" }}
-              onClick={() => {
-                window.myAPI.invoke("changeHome", {});
-              }}
-            >
-              <HomeIcon />
-              Home
-            </Button>
+            <ListItemButton>
+              <Button>
+                <HomeIcon fontSize="small"/>
+              </Button>
+              <ListItemText
+                primary="Home"
+                onClick={() => {
+                  window.myAPI.invoke("changeHome", {});
+                }}
+              ></ListItemText>
+            </ListItemButton>
             {views.map((v, i) => {
               return (
                 <ListItemButton>
@@ -80,7 +80,7 @@ export const SideMenu = () => {
                       dispatch(remove(v.viewId));
                     }}
                   >
-                    <CloseIcon />
+                    <CloseIcon fontSize="small" />
                   </Button>
                   <ListItemText
                     primary={v.title}

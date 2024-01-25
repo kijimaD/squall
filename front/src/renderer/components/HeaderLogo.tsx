@@ -3,8 +3,8 @@ import TornadoIcon from "@mui/icons-material/Tornado";
 
 export const HeaderLogo = () => {
   return (
-    <Typography variant="h3">
-      <TornadoIcon sx={{ color: "blue", fontSize: 34 }} />
+    <Typography variant="h3" sx={{ fontWeight: 'bold' }}>
+      <TornadoIcon sx={{ fontSize: 38 }} />
       Squall
     </Typography>
   );
