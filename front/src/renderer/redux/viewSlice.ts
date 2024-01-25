@@ -21,9 +21,15 @@ export const viewSlice = createSlice({
         }
       });
     },
+    remove: (state, action) => {
+      const newViews = state.views.filter((n) => n.viewId !== action.payload);
+      state.views = newViews;
+    },
   },
 });
 
-export const { add, update } = viewSlice.actions;
+export const { add, update, remove } = viewSlice.actions;
 
 export default viewSlice.reducer;
+
+// const v: View = { viewId: id };
