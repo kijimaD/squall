@@ -43,6 +43,17 @@ export const SideMenu = () => {
   const [inputUrl, setInputUrl] = useState("https://github.com");
   const [reqCount, setReqCount] = useState(0);
 
+  // TODO: レスポンスを型に入れる
+  const { data, isLoading, _error, refetch } = useEntries();
+  const getEntries = () => {
+    refetch();
+    data.data.map(async (v, _i) => {
+      const id = await window.myAPI.invoke("openNewView", { url: v.url });
+      const view: View = { viewId: id };
+      dispatch(add(view));
+    });
+  };
+
   return (
     <Container>
       <HeaderLogo />
@@ -72,7 +83,9 @@ export const SideMenu = () => {
                 size="small"
                 type="number"
               />
-              <Button color="black">Load</Button>
+              <Button color="black" onClick={(e) => getEntries()}>
+                Load
+              </Button>
             </Container>
 
             <ListItemButton>
