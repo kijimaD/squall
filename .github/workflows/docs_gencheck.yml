@@ -31,9 +31,7 @@ jobs:
           cd ../docs
           make tbls
 
-          make merger # merge.ymlを生成する
-          sleep 2
-          make gengo gents
+          make merger gengo gents
 
       - name: Check for changes
         run: |
