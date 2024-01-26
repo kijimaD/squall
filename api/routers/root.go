@@ -10,7 +10,7 @@ import (
 )
 
 func (bh *BaseHandler) GetRoot(c *gin.Context) {
-	status := generated.GetRootResp{
+	status := generated.Root{
 		string(config.Config.AppEnv),
 		"live",
 		consts.AppVersion,
