@@ -32,6 +32,8 @@ jobs:
           make tbls
 
           make merger gengo gents
+          cd ../front
+          make fmt
 
       - name: Check for changes
         run: |

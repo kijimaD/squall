@@ -31,7 +31,17 @@ CREATE TABLE `entries` (`id` integer PRIMARY KEY AUTOINCREMENT,`url` text NOT NU
 
 ## Relations
 
-![er](entries.svg)
+```mermaid
+erDiagram
+
+
+"entries" {
+  INTEGER id
+  numeric is_done
+  TEXT title
+  TEXT url
+}
+```
 
 ---
 

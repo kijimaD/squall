@@ -8,7 +8,17 @@
 
 ## Relations
 
-![er](schema.svg)
+```mermaid
+erDiagram
+
+
+"entries" {
+  INTEGER id
+  numeric is_done
+  TEXT title
+  TEXT url
+}
+```
 
 ---
 
