@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * Squall API Docs
- * SquallのAPIドキュメント
+ * SquallのAPIドキュメント 
  *
  * The version of the OpenAPI document: v0.0.1
  * Contact: norimaking777@gmail.com
@@ -12,220 +12,171 @@
  * Do not edit the class manually.
  */
 
-import type { Configuration } from "./configuration";
-import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from "axios";
-import globalAxios from "axios";
+
+import type { Configuration } from './configuration';
+import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from 'axios';
+import globalAxios from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
-import {
-  DUMMY_BASE_URL,
-  assertParamExists,
-  setApiKeyToObject,
-  setBasicAuthToObject,
-  setBearerAuthToObject,
-  setOAuthToObject,
-  setSearchParams,
-  serializeDataIfNeeded,
-  toPathString,
-  createRequestFunction,
-} from "./common";
-import type { RequestArgs } from "./base";
+import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from './common';
+import type { RequestArgs } from './base';
 // @ts-ignore
-import {
-  BASE_PATH,
-  COLLECTION_FORMATS,
-  BaseAPI,
-  RequiredError,
-  operationServerMap,
-} from "./base";
+import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError, operationServerMap } from './base';
 
 /**
- *
+ * 
  * @export
  * @interface GetEntries200ResponseInner
  */
 export interface GetEntries200ResponseInner {
-  /**
-   * エントリID
-   * @type {number}
-   * @memberof GetEntries200ResponseInner
-   */
-  id: number;
-  /**
-   * エントリのURL
-   * @type {string}
-   * @memberof GetEntries200ResponseInner
-   */
-  url: string;
-  /**
-   * エントリのタイトル
-   * @type {string}
-   * @memberof GetEntries200ResponseInner
-   */
-  title: string;
-  /**
-   * エントリが既読かどうか。trueが、falseが既読を表す
-   * @type {boolean}
-   * @memberof GetEntries200ResponseInner
-   */
-  is_done: boolean;
+    /**
+     * エントリID
+     * @type {number}
+     * @memberof GetEntries200ResponseInner
+     */
+    'id': number;
+    /**
+     * エントリのURL
+     * @type {string}
+     * @memberof GetEntries200ResponseInner
+     */
+    'url': string;
+    /**
+     * エントリのタイトル
+     * @type {string}
+     * @memberof GetEntries200ResponseInner
+     */
+    'title': string;
+    /**
+     * エントリが既読かどうか。trueが、falseが既読を表す
+     * @type {boolean}
+     * @memberof GetEntries200ResponseInner
+     */
+    'is_done': boolean;
 }
 /**
- *
+ * 
  * @export
  * @interface GetRoot200Response
  */
 export interface GetRoot200Response {
-  /**
-   * サーバステータス。固定
-   * @type {string}
-   * @memberof GetRoot200Response
-   */
-  status: string;
-  /**
-   * 実行モード
-   * @type {string}
-   * @memberof GetRoot200Response
-   */
-  env: string;
-  /**
-   * APIバージョン
-   * @type {string}
-   * @memberof GetRoot200Response
-   */
-  version: string;
+    /**
+     * サーバステータス。固定
+     * @type {string}
+     * @memberof GetRoot200Response
+     */
+    'status': string;
+    /**
+     * 実行モード
+     * @type {string}
+     * @memberof GetRoot200Response
+     */
+    'env': string;
+    /**
+     * APIバージョン
+     * @type {string}
+     * @memberof GetRoot200Response
+     */
+    'version': string;
 }
 /**
- *
+ * 
  * @export
  * @interface GetRootDefaultResponse
  */
 export interface GetRootDefaultResponse {
-  /**
-   * HTTP status code
-   * @type {number}
-   * @memberof GetRootDefaultResponse
-   */
-  code: number;
-  /**
-   * HTTP status message
-   * @type {string}
-   * @memberof GetRootDefaultResponse
-   */
-  message: string;
+    /**
+     * HTTP status code
+     * @type {number}
+     * @memberof GetRootDefaultResponse
+     */
+    'code': number;
+    /**
+     * HTTP status message
+     * @type {string}
+     * @memberof GetRootDefaultResponse
+     */
+    'message': string;
 }
 
 /**
  * EntryApi - axios parameter creator
  * @export
  */
-export const EntryApiAxiosParamCreator = function (
-  configuration?: Configuration
-) {
-  return {
-    /**
-     * エントリ一覧
-     * @summary エントリ一覧
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getEntries: async (
-      options: RawAxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      const localVarPath = `/entries`;
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-      let baseOptions;
-      if (configuration) {
-        baseOptions = configuration.baseOptions;
-      }
+export const EntryApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * エントリ一覧
+         * @summary エントリ一覧
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getEntries: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/entries`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-      const localVarRequestOptions = {
-        method: "GET",
-        ...baseOptions,
-        ...options,
-      };
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
 
-      setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      };
 
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      };
-    },
-  };
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
 };
 
 /**
  * EntryApi - functional programming interface
  * @export
  */
-export const EntryApiFp = function (configuration?: Configuration) {
-  const localVarAxiosParamCreator = EntryApiAxiosParamCreator(configuration);
-  return {
-    /**
-     * エントリ一覧
-     * @summary エントリ一覧
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async getEntries(
-      options?: RawAxiosRequestConfig
-    ): Promise<
-      (
-        axios?: AxiosInstance,
-        basePath?: string
-      ) => AxiosPromise<Array<GetEntries200ResponseInner>>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.getEntries(
-        options
-      );
-      const index = configuration?.serverIndex ?? 0;
-      const operationBasePath =
-        operationServerMap["EntryApi.getEntries"]?.[index]?.url;
-      return (axios, basePath) =>
-        createRequestFunction(
-          localVarAxiosArgs,
-          globalAxios,
-          BASE_PATH,
-          configuration
-        )(axios, operationBasePath || basePath);
-    },
-  };
+export const EntryApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = EntryApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * エントリ一覧
+         * @summary エントリ一覧
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getEntries(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<GetEntries200ResponseInner>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getEntries(options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['EntryApi.getEntries']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+    }
 };
 
 /**
  * EntryApi - factory interface
  * @export
  */
-export const EntryApiFactory = function (
-  configuration?: Configuration,
-  basePath?: string,
-  axios?: AxiosInstance
-) {
-  const localVarFp = EntryApiFp(configuration);
-  return {
-    /**
-     * エントリ一覧
-     * @summary エントリ一覧
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getEntries(options?: any): AxiosPromise<Array<GetEntries200ResponseInner>> {
-      return localVarFp
-        .getEntries(options)
-        .then((request) => request(axios, basePath));
-    },
-  };
+export const EntryApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = EntryApiFp(configuration)
+    return {
+        /**
+         * エントリ一覧
+         * @summary エントリ一覧
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getEntries(options?: any): AxiosPromise<Array<GetEntries200ResponseInner>> {
+            return localVarFp.getEntries(options).then((request) => request(axios, basePath));
+        },
+    };
 };
 
 /**
@@ -235,131 +186,98 @@ export const EntryApiFactory = function (
  * @extends {BaseAPI}
  */
 export class EntryApi extends BaseAPI {
-  /**
-   * エントリ一覧
-   * @summary エントリ一覧
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof EntryApi
-   */
-  public getEntries(options?: RawAxiosRequestConfig) {
-    return EntryApiFp(this.configuration)
-      .getEntries(options)
-      .then((request) => request(this.axios, this.basePath));
-  }
+    /**
+     * エントリ一覧
+     * @summary エントリ一覧
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof EntryApi
+     */
+    public getEntries(options?: RawAxiosRequestConfig) {
+        return EntryApiFp(this.configuration).getEntries(options).then((request) => request(this.axios, this.basePath));
+    }
 }
+
+
 
 /**
  * MiscApi - axios parameter creator
  * @export
  */
-export const MiscApiAxiosParamCreator = function (
-  configuration?: Configuration
-) {
-  return {
-    /**
-     * ヘルスチェック
-     * @summary ヘルスチェック
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getRoot: async (
-      options: RawAxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      const localVarPath = `/`;
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-      let baseOptions;
-      if (configuration) {
-        baseOptions = configuration.baseOptions;
-      }
+export const MiscApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * ヘルスチェック
+         * @summary ヘルスチェック
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getRoot: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-      const localVarRequestOptions = {
-        method: "GET",
-        ...baseOptions,
-        ...options,
-      };
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
 
-      setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      };
 
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      };
-    },
-  };
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
 };
 
 /**
  * MiscApi - functional programming interface
  * @export
  */
-export const MiscApiFp = function (configuration?: Configuration) {
-  const localVarAxiosParamCreator = MiscApiAxiosParamCreator(configuration);
-  return {
-    /**
-     * ヘルスチェック
-     * @summary ヘルスチェック
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async getRoot(
-      options?: RawAxiosRequestConfig
-    ): Promise<
-      (
-        axios?: AxiosInstance,
-        basePath?: string
-      ) => AxiosPromise<GetRoot200Response>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.getRoot(
-        options
-      );
-      const index = configuration?.serverIndex ?? 0;
-      const operationBasePath =
-        operationServerMap["MiscApi.getRoot"]?.[index]?.url;
-      return (axios, basePath) =>
-        createRequestFunction(
-          localVarAxiosArgs,
-          globalAxios,
-          BASE_PATH,
-          configuration
-        )(axios, operationBasePath || basePath);
-    },
-  };
+export const MiscApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = MiscApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * ヘルスチェック
+         * @summary ヘルスチェック
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getRoot(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetRoot200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getRoot(options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['MiscApi.getRoot']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+    }
 };
 
 /**
  * MiscApi - factory interface
  * @export
  */
-export const MiscApiFactory = function (
-  configuration?: Configuration,
-  basePath?: string,
-  axios?: AxiosInstance
-) {
-  const localVarFp = MiscApiFp(configuration);
-  return {
-    /**
-     * ヘルスチェック
-     * @summary ヘルスチェック
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getRoot(options?: any): AxiosPromise<GetRoot200Response> {
-      return localVarFp
-        .getRoot(options)
-        .then((request) => request(axios, basePath));
-    },
-  };
+export const MiscApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = MiscApiFp(configuration)
+    return {
+        /**
+         * ヘルスチェック
+         * @summary ヘルスチェック
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getRoot(options?: any): AxiosPromise<GetRoot200Response> {
+            return localVarFp.getRoot(options).then((request) => request(axios, basePath));
+        },
+    };
 };
 
 /**
@@ -369,16 +287,17 @@ export const MiscApiFactory = function (
  * @extends {BaseAPI}
  */
 export class MiscApi extends BaseAPI {
-  /**
-   * ヘルスチェック
-   * @summary ヘルスチェック
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof MiscApi
-   */
-  public getRoot(options?: RawAxiosRequestConfig) {
-    return MiscApiFp(this.configuration)
-      .getRoot(options)
-      .then((request) => request(this.axios, this.basePath));
-  }
+    /**
+     * ヘルスチェック
+     * @summary ヘルスチェック
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MiscApi
+     */
+    public getRoot(options?: RawAxiosRequestConfig) {
+        return MiscApiFp(this.configuration).getRoot(options).then((request) => request(this.axios, this.basePath));
+    }
 }
+
+
+

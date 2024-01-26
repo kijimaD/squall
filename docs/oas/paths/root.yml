@@ -6,10 +6,6 @@ get:
     - Misc
   responses:
     '200':
-      description: 成功
-      content:
-        application/json:
-          schema:
-            $ref: "../components/schemas/Root.yml#/GetRootResp"
+      $ref: "../components/responses.yml#/RespRoot"
     default:
       $ref: "../components/codes.yml#/500InternalServerError"

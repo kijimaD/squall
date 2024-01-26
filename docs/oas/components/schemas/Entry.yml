@@ -21,7 +21,7 @@ EntryIsDone:
 
 # ================
 
-GetEntryResp:
+Entry:
   type: object
   required:
     - id
@@ -38,7 +38,7 @@ GetEntryResp:
     is_done:
       $ref: "#/EntryIsDone"
 
-GetEntriesResp:
+Entries:
   type: array
   items:
-    $ref: "#/GetEntryResp"
+    $ref: "#/Entry"
