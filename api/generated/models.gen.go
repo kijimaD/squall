@@ -14,9 +14,6 @@ type Entry struct {
 	// IsDone エントリが既読かどうか。trueが、falseが既読を表す
 	IsDone EntryIsDone `json:"is_done"`
 
-	// Title エントリのタイトル
-	Title EntryTitle `json:"title"`
-
 	// Url エントリのURL
 	Url EntryURL `json:"url"`
 }
@@ -26,9 +23,6 @@ type EntryID = int
 
 // EntryIsDone エントリが既読かどうか。trueが、falseが既読を表す
 type EntryIsDone = bool
-
-// EntryTitle エントリのタイトル
-type EntryTitle = string
 
 // EntryURL エントリのURL
 type EntryURL = string

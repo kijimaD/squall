@@ -9,12 +9,6 @@ EntryURL:
   minLength: 0
   maxLength: 1000
 
-EntryTitle:
-  type: string
-  description: エントリのタイトル
-  minLength: 0
-  maxLength: 1000
-
 EntryIsDone:
   type: boolean
   description: エントリが既読かどうか。trueが、falseが既読を表す
@@ -26,15 +20,12 @@ Entry:
   required:
     - id
     - url
-    - title
     - is_done
   properties:
     id:
       $ref: "#/EntryID"
     url:
       $ref: "#/EntryURL"
-    title:
-      $ref: "#/EntryTitle"
     is_done:
       $ref: "#/EntryIsDone"
 

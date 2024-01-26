@@ -58,12 +58,6 @@ export interface GetEntries200ResponseInner {
    */
   url: string;
   /**
-   * エントリのタイトル
-   * @type {string}
-   * @memberof GetEntries200ResponseInner
-   */
-  title: string;
-  /**
    * エントリが既読かどうか。trueが、falseが既読を表す
    * @type {boolean}
    * @memberof GetEntries200ResponseInner
