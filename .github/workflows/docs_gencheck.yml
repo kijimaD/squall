@@ -1,0 +1,32 @@
+# 自動生成タスクを反映漏れしてないかをチェックする
+name: docs_gencheck
+
+on:
+  push:
+
+jobs:
+  main:
+    name: gencheck
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: docker/setup-buildx-action@v2
+
+      - name: setup
+        run: |
+          cd api
+          go run . seed # sqliteファイルを生成する
+          cd ../docs
+          make tbls
+
+          make merger # merge.ymlを生成する
+          sleep 2
+          make gengo gents
+
+      - name: Check for changes
+        run: |
+          git status -s
+          test -z "$(git status -s)"
