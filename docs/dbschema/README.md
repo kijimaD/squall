@@ -4,7 +4,7 @@
 
 | Name | Columns | Comment | Type |
 | ---- | ------- | ------- | ---- |
-| [entries](entries.md) | 4 | RSSなどの情報源から取得した、1つのURLを持つWebページ。<br> | table |
+| [entries](entries.md) | 3 | RSSなどの情報源から取得した、1つのURLを持つWebページ。<br> | table |
 
 ## Relations
 
@@ -15,7 +15,6 @@ erDiagram
 "entries" {
   INTEGER id
   numeric is_done
-  TEXT title
   TEXT url
 }
 ```

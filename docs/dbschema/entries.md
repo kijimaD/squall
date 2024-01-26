@@ -9,7 +9,7 @@ RSSなどの情報源から取得した、1つのURLを持つWebページ。
 <summary><strong>Table Definition</strong></summary>
 
 ```sql
-CREATE TABLE `entries` (`id` integer PRIMARY KEY AUTOINCREMENT,`url` text NOT NULL,`title` text NOT NULL,`is_done` numeric NOT NULL DEFAULT false)
+CREATE TABLE `entries` (`id` integer PRIMARY KEY AUTOINCREMENT,`url` text NOT NULL,`is_done` numeric NOT NULL DEFAULT false)
 ```
 
 </details>
@@ -20,7 +20,6 @@ CREATE TABLE `entries` (`id` integer PRIMARY KEY AUTOINCREMENT,`url` text NOT NU
 | ---- | ---- | ------- | -------- | -------- | ------- | ------- |
 | id | INTEGER |  | true |  |  |  |
 | is_done | numeric | false | false |  |  | 既読かどうか |
-| title | TEXT |  | false |  |  | エントリの内容が何か人が識別できる名前 |
 | url | TEXT |  | false |  |  | エントリのURL |
 
 ## Constraints
@@ -38,7 +37,6 @@ erDiagram
 "entries" {
   INTEGER id
   numeric is_done
-  TEXT title
   TEXT url
 }
 ```
