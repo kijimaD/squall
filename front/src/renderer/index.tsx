@@ -48,5 +48,5 @@ createRoot(document.getElementById("app")!).render(
         </ThemeProvider>
       </QueryClientProvider>
     </Provider>
-  </StrictMode>
+  </StrictMode>,
 );

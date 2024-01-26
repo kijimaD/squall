@@ -120,7 +120,7 @@ export interface GetRootDefaultResponse {
  * @export
  */
 export const EntryApiAxiosParamCreator = function (
-  configuration?: Configuration
+  configuration?: Configuration,
 ) {
   return {
     /**
@@ -134,7 +134,7 @@ export const EntryApiAxiosParamCreator = function (
     getEntries: async (
       size?: number,
       ignoreIds?: Array<number>,
-      options: RawAxiosRequestConfig = {}
+      options: RawAxiosRequestConfig = {},
     ): Promise<RequestArgs> => {
       const localVarPath = `/entries`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -195,17 +195,17 @@ export const EntryApiFp = function (configuration?: Configuration) {
     async getEntries(
       size?: number,
       ignoreIds?: Array<number>,
-      options?: RawAxiosRequestConfig
+      options?: RawAxiosRequestConfig,
     ): Promise<
       (
         axios?: AxiosInstance,
-        basePath?: string
+        basePath?: string,
       ) => AxiosPromise<Array<GetEntries200ResponseInner>>
     > {
       const localVarAxiosArgs = await localVarAxiosParamCreator.getEntries(
         size,
         ignoreIds,
-        options
+        options,
       );
       const index = configuration?.serverIndex ?? 0;
       const operationBasePath =
@@ -215,7 +215,7 @@ export const EntryApiFp = function (configuration?: Configuration) {
           localVarAxiosArgs,
           globalAxios,
           BASE_PATH,
-          configuration
+          configuration,
         )(axios, operationBasePath || basePath);
     },
   };
@@ -228,7 +228,7 @@ export const EntryApiFp = function (configuration?: Configuration) {
 export const EntryApiFactory = function (
   configuration?: Configuration,
   basePath?: string,
-  axios?: AxiosInstance
+  axios?: AxiosInstance,
 ) {
   const localVarFp = EntryApiFp(configuration);
   return {
@@ -243,7 +243,7 @@ export const EntryApiFactory = function (
     getEntries(
       size?: number,
       ignoreIds?: Array<number>,
-      options?: any
+      options?: any,
     ): AxiosPromise<Array<GetEntries200ResponseInner>> {
       return localVarFp
         .getEntries(size, ignoreIds, options)
@@ -271,7 +271,7 @@ export class EntryApi extends BaseAPI {
   public getEntries(
     size?: number,
     ignoreIds?: Array<number>,
-    options?: RawAxiosRequestConfig
+    options?: RawAxiosRequestConfig,
   ) {
     return EntryApiFp(this.configuration)
       .getEntries(size, ignoreIds, options)
@@ -284,7 +284,7 @@ export class EntryApi extends BaseAPI {
  * @export
  */
 export const MiscApiAxiosParamCreator = function (
-  configuration?: Configuration
+  configuration?: Configuration,
 ) {
   return {
     /**
@@ -294,7 +294,7 @@ export const MiscApiAxiosParamCreator = function (
      * @throws {RequiredError}
      */
     getRoot: async (
-      options: RawAxiosRequestConfig = {}
+      options: RawAxiosRequestConfig = {},
     ): Promise<RequestArgs> => {
       const localVarPath = `/`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -343,16 +343,15 @@ export const MiscApiFp = function (configuration?: Configuration) {
      * @throws {RequiredError}
      */
     async getRoot(
-      options?: RawAxiosRequestConfig
+      options?: RawAxiosRequestConfig,
     ): Promise<
       (
         axios?: AxiosInstance,
-        basePath?: string
+        basePath?: string,
       ) => AxiosPromise<GetRoot200Response>
     > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.getRoot(
-        options
-      );
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.getRoot(options);
       const index = configuration?.serverIndex ?? 0;
       const operationBasePath =
         operationServerMap["MiscApi.getRoot"]?.[index]?.url;
@@ -361,7 +360,7 @@ export const MiscApiFp = function (configuration?: Configuration) {
           localVarAxiosArgs,
           globalAxios,
           BASE_PATH,
-          configuration
+          configuration,
         )(axios, operationBasePath || basePath);
     },
   };
@@ -374,7 +373,7 @@ export const MiscApiFp = function (configuration?: Configuration) {
 export const MiscApiFactory = function (
   configuration?: Configuration,
   basePath?: string,
-  axios?: AxiosInstance
+  axios?: AxiosInstance,
 ) {
   const localVarFp = MiscApiFp(configuration);
   return {

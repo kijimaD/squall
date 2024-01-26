@@ -6,8 +6,8 @@ run: ## 実行する
 
 .PHONY: fmt
 fmt: ## format
-	@npx prettier --write "**/*.ts"
-	@npx prettier --write "**/*.tsx"
+	@npx --yes prettier@^3 --write "**/*.ts"
+	@npx --yes prettier@^3 --write "**/*.tsx"
 
 .PHONY: help
 help: ## ヘルプ表示
