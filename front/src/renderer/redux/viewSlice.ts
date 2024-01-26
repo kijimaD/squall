@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export type View = {
   viewId: number;
   title: string;
+  dataId: number;
 };
 
 export const viewSlice = createSlice({

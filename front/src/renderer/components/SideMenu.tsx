@@ -44,18 +44,21 @@ export const SideMenu = () => {
   const [reqCount, setReqCount] = useState(10);
 
   // TODO: レスポンスを型に入れる
-  const { data, isLoading, _error, refetch } = useEntries(reqCount, []);
+  const { data, isLoading, _error, refetch } = useEntries(
+    reqCount,
+    views.map((v) => v.dataId),
+  );
   const getEntries = () => {
     data.data.map(async (v, _i) => {
       const id = await window.myAPI.invoke("openNewView", { url: v.url });
-      const view: View = { viewId: id };
+      const view: View = { viewId: id, dataId: v.id };
       dispatch(add(view));
     });
   };
 
   useEffect(() => {
     refetch();
-  }, [reqCount]);
+  }, [reqCount, views]);
 
   return (
     <Container>
