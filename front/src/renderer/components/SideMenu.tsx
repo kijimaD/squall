@@ -41,7 +41,7 @@ export const SideMenu = () => {
   }, []);
 
   const [inputUrl, setInputUrl] = useState("https://github.com");
-  const [reqCount, setReqCount] = useState(0);
+  const [reqCount, setReqCount] = useState(10);
 
   // TODO: レスポンスを型に入れる
   const { data, isLoading, _error, refetch } = useEntries();
@@ -81,6 +81,7 @@ export const SideMenu = () => {
                 defaultValue={reqCount}
                 onChange={(e) => setReqCount(e.target.value)}
                 size="small"
+                sx={{ maxWidth: 100 }}
                 type="number"
               />
               <Button color="black" onClick={(e) => getEntries()}>
