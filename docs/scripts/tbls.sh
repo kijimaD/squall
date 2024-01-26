@@ -10,7 +10,6 @@ cd ../..
 
 lint_tbls() {
     docker run \
-           --net web_default \
            --env TBLS_DSN=sqlite:///work/api/squall.sqlite \
            --env TBLS_DOC_PATH=docs/dbschema \
            --rm \
@@ -25,7 +24,6 @@ lint_tbls
 
 generate_tbls() {
     docker run \
-           --net web_default \
            --env TBLS_DSN=sqlite:///work/api/squall.sqlite \
            --env TBLS_DOC_PATH=docs/dbschema \
            --rm \
