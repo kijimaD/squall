@@ -108,10 +108,12 @@ export const EntryApiAxiosParamCreator = function (configuration?: Configuration
         /**
          * エントリ一覧
          * @summary エントリ一覧
+         * @param {number} [size] 取得件数
+         * @param {Array<number>} [ignoreIds] 取得結果から排除するID。取得件数は排除した結果の件数とする
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getEntries: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getEntries: async (size?: number, ignoreIds?: Array<number>, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/entries`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -123,6 +125,14 @@ export const EntryApiAxiosParamCreator = function (configuration?: Configuration
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+            if (ignoreIds) {
+                localVarQueryParameter['ignore_ids'] = ignoreIds;
+            }
 
 
     
@@ -148,11 +158,13 @@ export const EntryApiFp = function(configuration?: Configuration) {
         /**
          * エントリ一覧
          * @summary エントリ一覧
+         * @param {number} [size] 取得件数
+         * @param {Array<number>} [ignoreIds] 取得結果から排除するID。取得件数は排除した結果の件数とする
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getEntries(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<GetEntries200ResponseInner>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getEntries(options);
+        async getEntries(size?: number, ignoreIds?: Array<number>, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<GetEntries200ResponseInner>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getEntries(size, ignoreIds, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['EntryApi.getEntries']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -170,11 +182,13 @@ export const EntryApiFactory = function (configuration?: Configuration, basePath
         /**
          * エントリ一覧
          * @summary エントリ一覧
+         * @param {number} [size] 取得件数
+         * @param {Array<number>} [ignoreIds] 取得結果から排除するID。取得件数は排除した結果の件数とする
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getEntries(options?: any): AxiosPromise<Array<GetEntries200ResponseInner>> {
-            return localVarFp.getEntries(options).then((request) => request(axios, basePath));
+        getEntries(size?: number, ignoreIds?: Array<number>, options?: any): AxiosPromise<Array<GetEntries200ResponseInner>> {
+            return localVarFp.getEntries(size, ignoreIds, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -189,12 +203,14 @@ export class EntryApi extends BaseAPI {
     /**
      * エントリ一覧
      * @summary エントリ一覧
+     * @param {number} [size] 取得件数
+     * @param {Array<number>} [ignoreIds] 取得結果から排除するID。取得件数は排除した結果の件数とする
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof EntryApi
      */
-    public getEntries(options?: RawAxiosRequestConfig) {
-        return EntryApiFp(this.configuration).getEntries(options).then((request) => request(this.axios, this.basePath));
+    public getEntries(size?: number, ignoreIds?: Array<number>, options?: RawAxiosRequestConfig) {
+        return EntryApiFp(this.configuration).getEntries(size, ignoreIds, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

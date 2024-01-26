@@ -4,7 +4,11 @@
 package generated
 
 import (
+	"fmt"
+	"net/http"
+
 	"github.com/gin-gonic/gin"
+	"github.com/oapi-codegen/runtime"
 )
 
 // ServerInterface represents all server handlers.
@@ -14,7 +18,7 @@ type ServerInterface interface {
 	GetRoot(c *gin.Context)
 	// エントリ一覧
 	// (GET /entries)
-	GetEntries(c *gin.Context)
+	GetEntries(c *gin.Context, params GetEntriesParams)
 }
 
 // ServerInterfaceWrapper converts contexts to parameters.
@@ -42,6 +46,27 @@ func (siw *ServerInterfaceWrapper) GetRoot(c *gin.Context) {
 // GetEntries operation middleware
 func (siw *ServerInterfaceWrapper) GetEntries(c *gin.Context) {
 
+	var err error
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params GetEntriesParams
+
+	// ------------- Optional query parameter "size" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "size", c.Request.URL.Query(), &params.Size)
+	if err != nil {
+		siw.ErrorHandler(c, fmt.Errorf("Invalid format for parameter size: %w", err), http.StatusBadRequest)
+		return
+	}
+
+	// ------------- Optional query parameter "ignore_ids" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "ignore_ids", c.Request.URL.Query(), &params.IgnoreIds)
+	if err != nil {
+		siw.ErrorHandler(c, fmt.Errorf("Invalid format for parameter ignore_ids: %w", err), http.StatusBadRequest)
+		return
+	}
+
 	for _, middleware := range siw.HandlerMiddlewares {
 		middleware(c)
 		if c.IsAborted() {
@@ -49,7 +74,7 @@ func (siw *ServerInterfaceWrapper) GetEntries(c *gin.Context) {
 		}
 	}
 
-	siw.Handler.GetEntries(c)
+	siw.Handler.GetEntries(c, params)
 }
 
 // GinServerOptions provides options for the Gin server.

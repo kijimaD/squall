@@ -63,6 +63,12 @@ type Status = string
 // Version APIバージョン
 type Version = string
 
+// IgnoreIds defines model for ignoreIds.
+type IgnoreIds = []int
+
+// Size defines model for size.
+type Size = int
+
 // N500InternalServerError defines model for 500InternalServerError.
 type N500InternalServerError = MessageResponse
 
@@ -71,3 +77,12 @@ type RespEntries = Entries
 
 // RespRoot defines model for RespRoot.
 type RespRoot = Root
+
+// GetEntriesParams defines parameters for GetEntries.
+type GetEntriesParams struct {
+	// Size 取得件数
+	Size *Size `form:"size,omitempty" json:"size,omitempty"`
+
+	// IgnoreIds 取得結果から排除するID。取得件数は排除した結果の件数とする
+	IgnoreIds *IgnoreIds `form:"ignore_ids,omitempty" json:"ignore_ids,omitempty"`
+}

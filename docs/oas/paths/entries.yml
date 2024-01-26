@@ -4,6 +4,9 @@ get:
   operationId: getEntries
   tags:
     - Entry
+  parameters:
+    - $ref: "../components/queries.yml#/size"
+    - $ref: "../components/queries.yml#/ignoreIds"
   responses:
     '200':
       $ref: "../components/responses.yml#/RespEntries"
