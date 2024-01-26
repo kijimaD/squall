@@ -31,7 +31,10 @@ jobs:
           cd ../docs
           make tbls
 
+          sed -i -e 's/3\.44\.0/3\.42\.0/g' dbschema/schema.json # driverバージョンが変わってしまうのを補正
+
           make merger gengo gents
+
           cd ../front
           make fmt
 
