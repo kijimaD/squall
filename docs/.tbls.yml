@@ -14,7 +14,7 @@ format:
 
 er:
   # ER diagram image format
-  # format: mermaid
+  format: mermaid
 
 lint:
   requiredTableComment:

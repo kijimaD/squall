@@ -35,5 +35,6 @@ jobs:
 
       - name: Check for changes
         run: |
+          git diff
           git status -s
           test -z "$(git status -s)"
