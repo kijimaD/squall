@@ -32,7 +32,6 @@ func runSeed(_ *cli.Context) error {
 	_, deps = factories.MakeEntry(factories.Fields{"URL": "https://github.com"}, deps)
 	_, deps = factories.MakeEntry(factories.Fields{"URL": "https://github.com/kijimaD"}, deps)
 	_, deps = factories.MakeEntry(factories.Fields{"URL": "https://go.dev/"}, deps)
-	_, deps = factories.MakeEntry(factories.Fields{"URL": "https://www.rfc-editor.org/"}, deps)
 	for _, m := range deps {
 		err := models.GetDB().Create(m).Error
 		if err != nil {
