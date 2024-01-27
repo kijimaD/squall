@@ -1,38 +1,52 @@
 package fetcher
 
 import (
-	"fmt"
 	"log"
+	"squall/models"
 
 	"github.com/mmcdole/gofeed"
 )
 
-// type FeedGetter interface {
-// 	GetFeed(url string) ([]byte, error)
-// }
+type GetFeeder interface {
+	GetFeed(url string) ([]string, error)
+}
+
+type RealFeedGetter struct{}
+
+// フィードソースから各フィードエントリを取得する
+func (r *RealFeedGetter) GetFeed(sourceURL string) ([]string, error) {
+	fp := gofeed.NewParser()
+	feed, err := fp.ParseURL(sourceURL)
+	if err != nil {
+		return nil, err
+	}
+
+	var urls []string
+	for _, f := range feed.Items {
+		urls = append(urls, f.Link)
+	}
+	return urls, nil
+}
+
+type MockFeedGetter struct{}
+
+// フィードソースから各フィードエントリを取得する
+func (r *MockFeedGetter) GetFeed(sourceURL string) ([]string, error) {
+	return []string{"https://google.com"}, nil
+}
 
 // 登録されているフィードソースから取得する
-// TODO: ここでインターフェースを渡すようにする
-func FetchFeeds(feedSources feedSources) error {
+func FetchFeeds(feedSources feedSources, gf GetFeeder) error {
 	for _, f := range feedSources {
-		err := getFeedURL(f.URL)
+		urls, err := gf.GetFeed(f.URL)
 		if err != nil {
 			log.Println(err)
 		}
-	}
-	return nil
-}
-
-// フィードソースから各フィードエントリを取得する
-func getFeedURL(url string) error {
-	fp := gofeed.NewParser()
-	feed, err := fp.ParseURL(url)
-	if err != nil {
-		return err
-	}
-
-	for _, f := range feed.Items {
-		fmt.Printf("%#v\n", f.Link)
+		for _, u := range urls {
+			entry := models.Entry{URL: u}
+			err = getDB().Create(&entry).Error
+			return err
+		}
 	}
 	return nil
 }
