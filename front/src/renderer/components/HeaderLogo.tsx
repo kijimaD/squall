@@ -1,10 +1,10 @@
 import { Typography } from "@mui/material";
-import TornadoIcon from "@mui/icons-material/Tornado";
+import BubbleChartIcon from "@mui/icons-material/BubbleChart";
 
 export const HeaderLogo = () => {
   return (
-    <Typography variant="h3" sx={{ fontWeight: 'bold' }}>
-      <TornadoIcon sx={{ fontSize: 38 }} />
+    <Typography variant="h3" sx={{ fontWeight: "bold" }}>
+      <BubbleChartIcon sx={{ fontSize: 38 }} />
       Squall
     </Typography>
   );

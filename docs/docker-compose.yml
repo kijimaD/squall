@@ -14,16 +14,7 @@ services:
     depends_on:
       - merger
 
-  # redoc用に、openapi定義ファイルを1ファイルにして出力する(one shot)
-  merger:
-    image: redocly/cli:1.4.1
-    volumes:
-      - ./oas:/work
-    working_dir: /work
-    command: bundle openapi.yml -o merge.yml
-
   # DB docs ================
-
   # tblsで出力したmarkdownを配信する
   dbschema:
     build:

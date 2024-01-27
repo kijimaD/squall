@@ -1,8 +1,19 @@
-LimitParam:
-  name: limit
+size:
+  description: 取得件数
   in: query
-  description: データ件数
-  required: false
+  name: size
   schema:
     type: integer
-    format: int32
+    minimum: 0
+    maximum: 100
+    default: 20
+
+ignoreIds:
+  description: 取得結果から排除するID。取得件数は排除した結果の件数とする
+  in: query
+  name: ignore_ids
+  schema:
+    type: array
+    items:
+      type: integer
+      minimum: 0

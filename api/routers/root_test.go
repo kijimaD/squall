@@ -23,7 +23,7 @@ func TestRoot(t *testing.T) {
 	r.ServeHTTP(rec, req)
 	assert.Equal(t, http.StatusOK, rec.Code)
 
-	var status generated.GetRootResp
+	var status generated.Root
 	err := json.Unmarshal(rec.Body.Bytes(), &status)
 	assert.Nil(t, err)
 	assert.Equal(t, "live", status.Status)

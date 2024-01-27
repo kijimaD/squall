@@ -5,6 +5,11 @@ import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 import { App } from "./App";
 import { store } from "./redux/store";
+import {
+  QueryCache,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
 
 const theme = createTheme({
   typography: {
@@ -19,13 +24,29 @@ const theme = createTheme({
   },
 });
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      gcTime: 5 * 60 * 1000,
+      staleTime: 3 * 1000,
+    },
+  },
+  queryCache: new QueryCache({
+    onError: (error) => {
+      console.log(error);
+    },
+  }),
+});
+
 createRoot(document.getElementById("app")!).render(
   <StrictMode>
     <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <App />
-      </ThemeProvider>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <App />
+        </ThemeProvider>
+      </QueryClientProvider>
     </Provider>
-  </StrictMode>
+  </StrictMode>,
 );

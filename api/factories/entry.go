@@ -15,8 +15,6 @@ var EntryFactory = factory.NewFactory(
 	return helper.GetPtr(uint(randomID())), nil
 }).Attr("URL", func(args factory.Args) (interface{}, error) {
 	return fmt.Sprintf("URL-%s", xid.New().String()), nil
-}).Attr("Title", func(args factory.Args) (interface{}, error) {
-	return fmt.Sprintf("Title-%s", xid.New().String()), nil
 }).Attr("IsDone", func(args factory.Args) (interface{}, error) {
 	return false, nil
 })

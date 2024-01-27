@@ -1,5 +1,9 @@
 .DEFAULT_GOAL := help
 
+.PHONY: merger
+merger: ## mergerを実行する
+	./scripts/merger.sh
+
 .PHONY: tbls
 tbls: ## tblsを実行する
 	./scripts/tbls.sh

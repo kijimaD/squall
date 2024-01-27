@@ -4,12 +4,11 @@ get:
   operationId: getEntries
   tags:
     - Entry
+  parameters:
+    - $ref: "../components/queries.yml#/size"
+    - $ref: "../components/queries.yml#/ignoreIds"
   responses:
     '200':
-      description: 成功
-      content:
-        application/json:
-          schema:
-            $ref: "../components/schemas/Entry.yml#/GetEntriesResp"
+      $ref: "../components/responses.yml#/RespEntries"
     default:
       $ref: "../components/codes.yml#/500InternalServerError"

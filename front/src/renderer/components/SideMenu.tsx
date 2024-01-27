@@ -13,8 +13,9 @@ import HomeIcon from "@mui/icons-material/Home";
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch, useSelector } from "react-redux";
-import { View, add, update, remove } from "../redux/viewSlice";
+import { View, add, updateTitle, remove } from "../redux/viewSlice";
 import { useEffect, useState } from "react";
+import { useEntries } from "../hooks/api/entry";
 
 export const SideMenu = () => {
   const views = useSelector((state) => state.view.views);
@@ -35,11 +36,29 @@ export const SideMenu = () => {
       const id = arg[0];
       const title = arg[1];
       const v: View = { viewId: id, title: title };
-      dispatch(update(v));
+      dispatch(updateTitle(v));
     });
   }, []);
 
   const [inputUrl, setInputUrl] = useState("https://github.com");
+  const [reqCount, setReqCount] = useState(2);
+
+  // TODO: レスポンスを型に入れる
+  const { data, isLoading, _error, refetch } = useEntries(
+    reqCount,
+    views.map((v) => v.dataId),
+  );
+  const getEntries = () => {
+    data.data.map(async (v, _i) => {
+      const id = await window.myAPI.invoke("openNewView", { url: v.url });
+      const view: View = { viewId: id, dataId: v.id };
+      dispatch(add(view));
+    });
+  };
+
+  useEffect(() => {
+    refetch();
+  }, [reqCount, views]);
 
   return (
     <Container>
@@ -47,22 +66,38 @@ export const SideMenu = () => {
       <Container maxWidth="lg" sx={{ mt: 2, mb: 2 }} className="container">
         <Grid container direction="row" spacing={2}>
           <Grid item xs={12} sm={6} spacing={1}>
-            <TextField
-              defaultValue={inputUrl}
-              onChange={(e) => setInputUrl(e.target.value)}
-              size="small"
-            />
-            <Button
-              color="black"
-              style={{ justifyContent: "flex-start" }}
-              onClick={() => newView()}
-            >
-              <SearchIcon />
-              Go
-            </Button>
+            <Container>
+              <TextField
+                defaultValue={inputUrl}
+                onChange={(e) => setInputUrl(e.target.value)}
+                size="small"
+              />
+              <Button
+                color="black"
+                style={{ justifyContent: "flex-start" }}
+                onClick={() => newView()}
+              >
+                <SearchIcon />
+                Go
+              </Button>
+            </Container>
+
+            <Container>
+              <TextField
+                defaultValue={reqCount}
+                onChange={(e) => setReqCount(e.target.value)}
+                size="small"
+                sx={{ maxWidth: 100 }}
+                type="number"
+              />
+              <Button color="black" onClick={(e) => getEntries()}>
+                Load
+              </Button>
+            </Container>
+
             <ListItemButton>
               <Button>
-                <HomeIcon fontSize="small"/>
+                <HomeIcon fontSize="small" />
               </Button>
               <ListItemText
                 primary="Home"

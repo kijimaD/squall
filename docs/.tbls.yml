@@ -14,7 +14,7 @@ format:
 
 er:
   # ER diagram image format
-  # format: mermaid
+  format: mermaid
 
 lint:
   requiredTableComment:
@@ -37,5 +37,4 @@ comments:
       RSSなどの情報源から取得した、1つのURLを持つWebページ。
     columnComments:
       url: エントリのURL
-      title: エントリの内容が何か人が識別できる名前
       is_done: 既読かどうか

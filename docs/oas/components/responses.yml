@@ -1,0 +1,20 @@
+RespRoot:
+  description: ヘルスチェック
+  content:
+    application/json:
+      schema:
+        $ref: "./schemas/Root.yml#/Root"
+
+RespEntry:
+  description: エントリ
+  content:
+    application/json:
+      schema:
+        $ref: "./schemas/Entry.yml#/Entry"
+
+RespEntries:
+  description: エントリ一覧
+  content:
+    application/json:
+      schema:
+        $ref: "./schemas/Entry.yml#/Entries"
