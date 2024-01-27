@@ -9,7 +9,7 @@ RSSなどの情報源から取得した、1つのURLを持つWebページ。
 <summary><strong>Table Definition</strong></summary>
 
 ```sql
-CREATE TABLE `entries` (`id` integer PRIMARY KEY AUTOINCREMENT,`url` text NOT NULL,`is_done` numeric NOT NULL DEFAULT false)
+CREATE TABLE `entries` (`id` integer PRIMARY KEY AUTOINCREMENT,`created_at` datetime,`updated_at` datetime,`deleted_at` datetime,`url` text NOT NULL UNIQUE,`is_done` numeric NOT NULL DEFAULT false)
 ```
 
 </details>
@@ -18,8 +18,11 @@ CREATE TABLE `entries` (`id` integer PRIMARY KEY AUTOINCREMENT,`url` text NOT NU
 
 | Name | Type | Default | Nullable | Children | Parents | Comment |
 | ---- | ---- | ------- | -------- | -------- | ------- | ------- |
+| created_at | datetime |  | true |  |  |  |
+| deleted_at | datetime |  | true |  |  |  |
 | id | INTEGER |  | true |  |  |  |
 | is_done | numeric | false | false |  |  | 既読かどうか |
+| updated_at | datetime |  | true |  |  |  |
 | url | TEXT |  | false |  |  | エントリのURL |
 
 ## Constraints
@@ -27,6 +30,14 @@ CREATE TABLE `entries` (`id` integer PRIMARY KEY AUTOINCREMENT,`url` text NOT NU
 | Name | Type | Definition |
 | ---- | ---- | ---------- |
 | id | PRIMARY KEY | PRIMARY KEY (id) |
+| sqlite_autoindex_entries_1 | UNIQUE | UNIQUE (url) |
+
+## Indexes
+
+| Name | Definition |
+| ---- | ---------- |
+| idx_entries_deleted_at | CREATE INDEX `idx_entries_deleted_at` ON `entries`(`deleted_at`) |
+| sqlite_autoindex_entries_1 | UNIQUE (url) |
 
 ## Relations
 
@@ -35,8 +46,11 @@ erDiagram
 
 
 "entries" {
+  datetime created_at
+  datetime deleted_at
   INTEGER id
   numeric is_done
+  datetime updated_at
   TEXT url
 }
 ```
