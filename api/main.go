@@ -1,11 +1,13 @@
 package main
 
 import (
+	"log"
 	"os"
 	"squall/cmd"
 )
 
 func main() {
 	app := cmd.NewMainApp()
-	_ = cmd.RunMainApp(app, os.Args...)
+	err := cmd.RunMainApp(app, os.Args...)
+	log.Fatal(err)
 }

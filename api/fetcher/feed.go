@@ -44,7 +44,9 @@ func FetchFeeds(feedSources feedSources, gf GetFeeder) error {
 		}
 		for _, u := range urls {
 			err = createEntry(u)
-			return err
+			if err != nil {
+				return err
+			}
 		}
 	}
 	return nil
