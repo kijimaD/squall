@@ -15,8 +15,12 @@ func (bh *BaseHandler) GetEntries(c *gin.Context, params generated.GetEntriesPar
 		size = *params.Size
 	}
 
+	ids := []int{}
+	if params.IgnoreIds != nil {
+		ids = *params.IgnoreIds
+	}
 	var es []models.Entry
-	err := getDB().Limit(size).Find(&es).Error
+	err := getDB().Limit(size).Not(ids).Find(&es).Error
 	if err != nil {
 		helper.ErrorResponse(c, err)
 
