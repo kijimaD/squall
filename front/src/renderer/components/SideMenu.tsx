@@ -13,7 +13,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch, useSelector } from "react-redux";
-import { View, add, update, remove } from "../redux/viewSlice";
+import { View, add, updateTitle, remove } from "../redux/viewSlice";
 import { useEffect, useState } from "react";
 import { useEntries } from "../hooks/api/entry";
 
@@ -36,12 +36,12 @@ export const SideMenu = () => {
       const id = arg[0];
       const title = arg[1];
       const v: View = { viewId: id, title: title };
-      dispatch(update(v));
+      dispatch(updateTitle(v));
     });
   }, []);
 
   const [inputUrl, setInputUrl] = useState("https://github.com");
-  const [reqCount, setReqCount] = useState(10);
+  const [reqCount, setReqCount] = useState(2);
 
   // TODO: レスポンスを型に入れる
   const { data, isLoading, _error, refetch } = useEntries(
