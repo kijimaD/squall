@@ -43,10 +43,24 @@ func FetchFeeds(feedSources feedSources, gf GetFeeder) error {
 			log.Println(err)
 		}
 		for _, u := range urls {
-			entry := models.Entry{URL: u}
-			err = getDB().Create(&entry).Error
+			err = createEntry(u)
 			return err
 		}
+	}
+	return nil
+}
+
+func createEntry(url string) error {
+	entry := models.Entry{URL: url}
+	var es []models.Entry
+	err := getDB().Where(&entry).Find(&es).Error
+	if err != nil {
+		return err
+	}
+	if len(es) == 0 {
+		// URLがまだ存在しないときだけ作成する
+		err = getDB().Create(&entry).Error
+		return nil
 	}
 	return nil
 }
