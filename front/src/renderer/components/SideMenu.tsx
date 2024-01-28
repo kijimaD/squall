@@ -109,6 +109,12 @@ export const SideMenu = () => {
             {views.map((v: View, i: number) => {
               return (
                 <ListItemButton key={i}>
+                  <ListItemText
+                    primary={v.title}
+                    onClick={() => {
+                      window.myAPI.invoke("changeTab", { id: v.viewId });
+                    }}
+                  />
                   <ButtonGroup
                     orientation="vertical"
                     aria-label="vertical contained button group"
@@ -125,12 +131,6 @@ export const SideMenu = () => {
                     </Button>
                     <DoneButton viewId={v.viewId} dataId={v.dataId} />
                   </ButtonGroup>
-                  <ListItemText
-                    primary={v.title}
-                    onClick={() => {
-                      window.myAPI.invoke("changeTab", { id: v.viewId });
-                    }}
-                  />
                 </ListItemButton>
               );
             })}
