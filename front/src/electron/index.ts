@@ -26,8 +26,8 @@ let topView: any;
 
 const createWindow = (): void => {
   mainWindow = new BrowserWindow({
-    width: 1980,
-    height: 1080,
+    width: 1980 - 400,
+    height: 1200,
     webPreferences: {
       // タブ領域の renderer プロセスから main プロセスにメッセージを送信するための contextBridge
       // preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
@@ -46,7 +46,7 @@ const createWindow = (): void => {
     view.webContents.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
     view.setBackgroundColor("white");
     const bound = mainWindow.getBounds();
-    view.setBounds({ x: 0, y: 0, width: 1080, height: bound.height });
+    view.setBounds({ x: 0, y: 0, width: 400, height: bound.height });
     view.webContents.openDevTools();
     uiView = view;
     topView = view;
@@ -110,7 +110,12 @@ function createView(url: string): number {
   view.webContents.loadURL(url);
   view.setBackgroundColor("white"); // これがないと、ページによってはスケルトンになる
   const bound = mainWindow.getBounds();
-  view.setBounds({ x: 300, y: 0, width: bound.width, height: bound.height });
+  view.setBounds({
+    x: 400,
+    y: 0,
+    width: bound.width - 400,
+    height: bound.height,
+  });
   view.webContents.on("dom-ready", () => {
     // ページの読み込みが完了したらRendererプロセスにメッセージを送信
     uiView.webContents.send("pageLoaded", [
