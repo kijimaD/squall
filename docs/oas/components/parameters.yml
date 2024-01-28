@@ -1,0 +1,7 @@
+entryIdParam:
+  description: 対象のエントリID
+  in: path
+  name: entry_id
+  required: true
+  schema:
+    $ref: "../components/schemas/Entry.yml#/EntryID"

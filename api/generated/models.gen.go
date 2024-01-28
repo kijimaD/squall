@@ -57,6 +57,9 @@ type Status = string
 // Version APIバージョン
 type Version = string
 
+// EntryIdParam エントリID
+type EntryIdParam = EntryID
+
 // IgnoreIds defines model for ignoreIds.
 type IgnoreIds = []int
 
@@ -68,6 +71,9 @@ type N500InternalServerError = MessageResponse
 
 // RespEntries defines model for RespEntries.
 type RespEntries = Entries
+
+// RespEntry defines model for RespEntry.
+type RespEntry = Entry
 
 // RespRoot defines model for RespRoot.
 type RespRoot = Root

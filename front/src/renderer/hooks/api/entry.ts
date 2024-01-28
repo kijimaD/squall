@@ -12,7 +12,7 @@ import { createApiConfiguration } from "./config";
 
 const entryApi = new EntryApi(createApiConfiguration());
 
-export const useEntries = (size: number, ignore_ids: number[]) => {
+export const useGetEntries = (size: number, ignore_ids: number[]) => {
   return useQuery({
     queryFn: async () =>
       await entryApi.getEntries(
@@ -20,5 +20,12 @@ export const useEntries = (size: number, ignore_ids: number[]) => {
         ignore_ids?.length ? ignore_ids : undefined,
       ),
     queryKey: ["entries"],
+  });
+};
+
+export const usePostDoneEntry = (entry_id: number) => {
+  return useQuery({
+    queryFn: async () => await entryApi.postDoneEntry(entry_id),
+    queryKey: ["done_entry"],
   });
 };

@@ -3,6 +3,7 @@ import {
   Grid,
   Paper,
   Button,
+  ButtonGroup,
   TextField,
   ListItemButton,
   ListItemText,
@@ -15,7 +16,8 @@ import { useDispatch } from "react-redux";
 import { View, add, updateTitle, remove } from "../redux/viewSlice";
 import { myUseSelector } from "../redux/store";
 import { useEffect, useState } from "react";
-import { useEntries } from "../hooks/api/entry";
+import { useGetEntries } from "../hooks/api/entry";
+import { DoneButton } from "./DoneButton";
 
 export const SideMenu = () => {
   const views = myUseSelector((state) => state.view.views);
@@ -43,10 +45,10 @@ export const SideMenu = () => {
   }, []);
 
   const [inputUrl, setInputUrl] = useState("https://github.com");
-  const [reqCount, setReqCount] = useState(4);
+  const [reqCount, setReqCount] = useState(3);
 
   // TODO: レスポンスを型に入れる
-  const { data, isLoading, error, refetch } = useEntries(
+  const { data, isLoading, error, refetch } = useGetEntries(
     reqCount,
     views.map((v: View) => v.dataId),
   );
@@ -79,7 +81,6 @@ export const SideMenu = () => {
                 onClick={() => newView()}
               >
                 <SearchIcon />
-                Go
               </Button>
             </Container>
 
@@ -107,15 +108,23 @@ export const SideMenu = () => {
             </ListItemButton>
             {views.map((v: View, i: number) => {
               return (
-                <ListItemButton>
-                  <Button
-                    onClick={() => {
-                      window.myAPI.invoke("removeView", { id: v.viewId });
-                      dispatch(remove(v.viewId));
-                    }}
+                <ListItemButton key={i}>
+                  <ButtonGroup
+                    orientation="vertical"
+                    aria-label="vertical contained button group"
+                    variant="text"
                   >
-                    <CloseIcon fontSize="small" />
-                  </Button>
+                    <Button
+                      size="small"
+                      onClick={() => {
+                        window.myAPI.invoke("removeView", { id: v.viewId });
+                        dispatch(remove(v.viewId));
+                      }}
+                    >
+                      <CloseIcon fontSize="small" />
+                    </Button>
+                    <DoneButton viewId={v.viewId} dataId={v.dataId} />
+                  </ButtonGroup>
                   <ListItemText
                     primary={v.title}
                     onClick={() => {
