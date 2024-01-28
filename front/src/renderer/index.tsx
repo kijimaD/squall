@@ -21,6 +21,12 @@ const theme = createTheme({
     black: {
       main: "#333333",
     },
+    background: {
+      default: "#f8f8f8",
+    },
+    primary: {
+      main: "#000000",
+    },
   },
 });
 

@@ -41,7 +41,7 @@ export const SideMenu = () => {
   }, []);
 
   const [inputUrl, setInputUrl] = useState("https://github.com");
-  const [reqCount, setReqCount] = useState(2);
+  const [reqCount, setReqCount] = useState(4);
 
   // TODO: レスポンスを型に入れる
   const { data, isLoading, _error, refetch } = useEntries(
@@ -61,7 +61,7 @@ export const SideMenu = () => {
   }, [reqCount, views]);
 
   return (
-    <Container>
+    <>
       <HeaderLogo />
       <Container maxWidth="lg" sx={{ mt: 2, mb: 2 }} className="container">
         <Grid container direction="row" spacing={2}>
@@ -129,6 +129,6 @@ export const SideMenu = () => {
           </Grid>
         </Grid>
       </Container>
-    </Container>
+    </>
   );
 };
