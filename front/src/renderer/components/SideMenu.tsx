@@ -8,7 +8,6 @@ import {
   ListItemText,
 } from "@mui/material";
 import { HeaderLogo } from "./HeaderLogo";
-import { EntryButton } from "./EntryButton";
 import HomeIcon from "@mui/icons-material/Home";
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
