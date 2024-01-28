@@ -5,7 +5,12 @@ import { Button, Tooltip } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
 import { remove } from "../redux/viewSlice";
 
-export const DoneButton = (props: Props) => {
+interface Props {
+  dataId: number;
+  viewId: number;
+}
+
+export const DoneButton: React.FC<Props> = (props) => {
   const views = myUseSelector((state) => state.view.views);
   const dispatch = useDispatch();
 
