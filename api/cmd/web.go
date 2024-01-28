@@ -40,7 +40,7 @@ func runWeb(_ *cli.Context) error {
 	}
 
 	{
-		b, err := os.ReadFile("./feeds.yml")
+		b, err := os.ReadFile("/home/orange/dotfiles/.garbanzo/feeds.yml") // test
 		if err != nil {
 			return fmt.Errorf("フィードリストの読み込みに失敗した: %w", err)
 		}
