@@ -1,7 +1,7 @@
 post:
   summary: エントリ既読化
   description: エントリを既読にする
-  operationId: doneEntry
+  operationId: postDoneEntry
   tags:
     - Entry
   parameters:

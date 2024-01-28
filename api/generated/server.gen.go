@@ -21,7 +21,7 @@ type ServerInterface interface {
 	GetEntries(c *gin.Context, params GetEntriesParams)
 	// エントリ既読化
 	// (POST /entries/{entry_id}/done)
-	DoneEntry(c *gin.Context, entryId EntryIdParam)
+	PostDoneEntry(c *gin.Context, entryId EntryIdParam)
 }
 
 // ServerInterfaceWrapper converts contexts to parameters.
@@ -80,8 +80,8 @@ func (siw *ServerInterfaceWrapper) GetEntries(c *gin.Context) {
 	siw.Handler.GetEntries(c, params)
 }
 
-// DoneEntry operation middleware
-func (siw *ServerInterfaceWrapper) DoneEntry(c *gin.Context) {
+// PostDoneEntry operation middleware
+func (siw *ServerInterfaceWrapper) PostDoneEntry(c *gin.Context) {
 
 	var err error
 
@@ -101,7 +101,7 @@ func (siw *ServerInterfaceWrapper) DoneEntry(c *gin.Context) {
 		}
 	}
 
-	siw.Handler.DoneEntry(c, entryId)
+	siw.Handler.PostDoneEntry(c, entryId)
 }
 
 // GinServerOptions provides options for the Gin server.
@@ -133,5 +133,5 @@ func RegisterHandlersWithOptions(router gin.IRouter, si ServerInterface, options
 
 	router.GET(options.BaseURL+"/", wrapper.GetRoot)
 	router.GET(options.BaseURL+"/entries", wrapper.GetEntries)
-	router.POST(options.BaseURL+"/entries/:entry_id/done", wrapper.DoneEntry)
+	router.POST(options.BaseURL+"/entries/:entry_id/done", wrapper.PostDoneEntry)
 }
