@@ -19,6 +19,9 @@ type ServerInterface interface {
 	// エントリ一覧
 	// (GET /entries)
 	GetEntries(c *gin.Context, params GetEntriesParams)
+	// エントリ既読化
+	// (POST /entries/{entry_id}/done)
+	DoneEntry(c *gin.Context, entryId EntryIdParam)
 }
 
 // ServerInterfaceWrapper converts contexts to parameters.
@@ -77,6 +80,30 @@ func (siw *ServerInterfaceWrapper) GetEntries(c *gin.Context) {
 	siw.Handler.GetEntries(c, params)
 }
 
+// DoneEntry operation middleware
+func (siw *ServerInterfaceWrapper) DoneEntry(c *gin.Context) {
+
+	var err error
+
+	// ------------- Path parameter "entry_id" -------------
+	var entryId EntryIdParam
+
+	err = runtime.BindStyledParameter("simple", false, "entry_id", c.Param("entry_id"), &entryId)
+	if err != nil {
+		siw.ErrorHandler(c, fmt.Errorf("Invalid format for parameter entry_id: %w", err), http.StatusBadRequest)
+		return
+	}
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		middleware(c)
+		if c.IsAborted() {
+			return
+		}
+	}
+
+	siw.Handler.DoneEntry(c, entryId)
+}
+
 // GinServerOptions provides options for the Gin server.
 type GinServerOptions struct {
 	BaseURL      string
@@ -106,4 +133,5 @@ func RegisterHandlersWithOptions(router gin.IRouter, si ServerInterface, options
 
 	router.GET(options.BaseURL+"/", wrapper.GetRoot)
 	router.GET(options.BaseURL+"/entries", wrapper.GetEntries)
+	router.POST(options.BaseURL+"/entries/:entry_id/done", wrapper.DoneEntry)
 }
