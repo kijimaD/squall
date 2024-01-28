@@ -118,52 +118,6 @@ export const EntryApiAxiosParamCreator = function (
 ) {
   return {
     /**
-     * エントリを既読にする
-     * @summary エントリ既読化
-     * @param {number} entryId 対象のエントリID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    doneEntry: async (
-      entryId: number,
-      options: RawAxiosRequestConfig = {},
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'entryId' is not null or undefined
-      assertParamExists("doneEntry", "entryId", entryId);
-      const localVarPath = `/entries/{entry_id}/done`.replace(
-        `{${"entry_id"}}`,
-        encodeURIComponent(String(entryId)),
-      );
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-      let baseOptions;
-      if (configuration) {
-        baseOptions = configuration.baseOptions;
-      }
-
-      const localVarRequestOptions = {
-        method: "GET",
-        ...baseOptions,
-        ...options,
-      };
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      };
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      };
-    },
-    /**
      * エントリ一覧
      * @summary エントリ一覧
      * @param {number} [size] 取得件数
@@ -214,6 +168,52 @@ export const EntryApiAxiosParamCreator = function (
         options: localVarRequestOptions,
       };
     },
+    /**
+     * エントリを既読にする
+     * @summary エントリ既読化
+     * @param {number} entryId 対象のエントリID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    postDoneEntry: async (
+      entryId: number,
+      options: RawAxiosRequestConfig = {},
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'entryId' is not null or undefined
+      assertParamExists("postDoneEntry", "entryId", entryId);
+      const localVarPath = `/entries/{entry_id}/done`.replace(
+        `{${"entry_id"}}`,
+        encodeURIComponent(String(entryId)),
+      );
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: "POST",
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
   };
 };
 
@@ -224,37 +224,6 @@ export const EntryApiAxiosParamCreator = function (
 export const EntryApiFp = function (configuration?: Configuration) {
   const localVarAxiosParamCreator = EntryApiAxiosParamCreator(configuration);
   return {
-    /**
-     * エントリを既読にする
-     * @summary エントリ既読化
-     * @param {number} entryId 対象のエントリID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async doneEntry(
-      entryId: number,
-      options?: RawAxiosRequestConfig,
-    ): Promise<
-      (
-        axios?: AxiosInstance,
-        basePath?: string,
-      ) => AxiosPromise<GetEntries200ResponseInner>
-    > {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.doneEntry(
-        entryId,
-        options,
-      );
-      const index = configuration?.serverIndex ?? 0;
-      const operationBasePath =
-        operationServerMap["EntryApi.doneEntry"]?.[index]?.url;
-      return (axios, basePath) =>
-        createRequestFunction(
-          localVarAxiosArgs,
-          globalAxios,
-          BASE_PATH,
-          configuration,
-        )(axios, operationBasePath || basePath);
-    },
     /**
      * エントリ一覧
      * @summary エントリ一覧
@@ -289,6 +258,37 @@ export const EntryApiFp = function (configuration?: Configuration) {
           configuration,
         )(axios, operationBasePath || basePath);
     },
+    /**
+     * エントリを既読にする
+     * @summary エントリ既読化
+     * @param {number} entryId 対象のエントリID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async postDoneEntry(
+      entryId: number,
+      options?: RawAxiosRequestConfig,
+    ): Promise<
+      (
+        axios?: AxiosInstance,
+        basePath?: string,
+      ) => AxiosPromise<GetEntries200ResponseInner>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.postDoneEntry(
+        entryId,
+        options,
+      );
+      const index = configuration?.serverIndex ?? 0;
+      const operationBasePath =
+        operationServerMap["EntryApi.postDoneEntry"]?.[index]?.url;
+      return (axios, basePath) =>
+        createRequestFunction(
+          localVarAxiosArgs,
+          globalAxios,
+          BASE_PATH,
+          configuration,
+        )(axios, operationBasePath || basePath);
+    },
   };
 };
 
@@ -303,21 +303,6 @@ export const EntryApiFactory = function (
 ) {
   const localVarFp = EntryApiFp(configuration);
   return {
-    /**
-     * エントリを既読にする
-     * @summary エントリ既読化
-     * @param {number} entryId 対象のエントリID
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    doneEntry(
-      entryId: number,
-      options?: any,
-    ): AxiosPromise<GetEntries200ResponseInner> {
-      return localVarFp
-        .doneEntry(entryId, options)
-        .then((request) => request(axios, basePath));
-    },
     /**
      * エントリ一覧
      * @summary エントリ一覧
@@ -335,6 +320,21 @@ export const EntryApiFactory = function (
         .getEntries(size, ignoreIds, options)
         .then((request) => request(axios, basePath));
     },
+    /**
+     * エントリを既読にする
+     * @summary エントリ既読化
+     * @param {number} entryId 対象のエントリID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    postDoneEntry(
+      entryId: number,
+      options?: any,
+    ): AxiosPromise<GetEntries200ResponseInner> {
+      return localVarFp
+        .postDoneEntry(entryId, options)
+        .then((request) => request(axios, basePath));
+    },
   };
 };
 
@@ -345,20 +345,6 @@ export const EntryApiFactory = function (
  * @extends {BaseAPI}
  */
 export class EntryApi extends BaseAPI {
-  /**
-   * エントリを既読にする
-   * @summary エントリ既読化
-   * @param {number} entryId 対象のエントリID
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof EntryApi
-   */
-  public doneEntry(entryId: number, options?: RawAxiosRequestConfig) {
-    return EntryApiFp(this.configuration)
-      .doneEntry(entryId, options)
-      .then((request) => request(this.axios, this.basePath));
-  }
-
   /**
    * エントリ一覧
    * @summary エントリ一覧
@@ -375,6 +361,20 @@ export class EntryApi extends BaseAPI {
   ) {
     return EntryApiFp(this.configuration)
       .getEntries(size, ignoreIds, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   * エントリを既読にする
+   * @summary エントリ既読化
+   * @param {number} entryId 対象のエントリID
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof EntryApi
+   */
+  public postDoneEntry(entryId: number, options?: RawAxiosRequestConfig) {
+    return EntryApiFp(this.configuration)
+      .postDoneEntry(entryId, options)
       .then((request) => request(this.axios, this.basePath));
   }
 }

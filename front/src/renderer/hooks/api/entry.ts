@@ -22,3 +22,10 @@ export const useGetEntries = (size: number, ignore_ids: number[]) => {
     queryKey: ["entries"],
   });
 };
+
+export const usePostDoneEntry = (entry_id: number) => {
+  return useQuery({
+    queryFn: async () => await entryApi.postDoneEntry(entry_id),
+    queryKey: ["done_entry"],
+  });
+};
