@@ -26,6 +26,7 @@ func TestGetEntries_取得できる(t *testing.T) {
 		nil,
 	)
 	r.ServeHTTP(rec, req)
+	assert.Equal(t, 200, rec.Code)
 
 	var es []models.Entry
 	err := json.Unmarshal(rec.Body.Bytes(), &es)
@@ -48,6 +49,7 @@ func TestGetEntries_sizeを指定できる(t *testing.T) {
 		nil,
 	)
 	r.ServeHTTP(rec, req)
+	assert.Equal(t, 200, rec.Code)
 
 	var es []models.Entry
 	err := json.Unmarshal(rec.Body.Bytes(), &es)
@@ -70,6 +72,7 @@ func TestGetEntries_sizeを超えない(t *testing.T) {
 		nil,
 	)
 	r.ServeHTTP(rec, req)
+	assert.Equal(t, 200, rec.Code)
 
 	var es []models.Entry
 	err := json.Unmarshal(rec.Body.Bytes(), &es)
@@ -92,6 +95,7 @@ func TestGetEntries_IDパラメータ指定で排除できる(t *testing.T) {
 		nil,
 	)
 	r.ServeHTTP(rec, req)
+	assert.Equal(t, 200, rec.Code)
 
 	var es []models.Entry
 	err := json.Unmarshal(rec.Body.Bytes(), &es)
@@ -99,4 +103,41 @@ func TestGetEntries_IDパラメータ指定で排除できる(t *testing.T) {
 	for _, e := range es {
 		assert.NotEqual(t, *paramEntry.ID, *e.ID)
 	}
+}
+
+// ================
+
+func TestPostDoneEntry_既読にできる(t *testing.T) {
+	var deps []factories.Dependency
+	entry, deps := factories.MakeEntry(factories.Fields{}, deps)
+	for _, m := range deps {
+		assert.NoError(t, getDB().Create(m).Error)
+	}
+
+	r, _ := NewRouter()
+	req, rec := testhelper.MakeRequest(t,
+		http.MethodPost,
+		fmt.Sprintf("/entries/%d/done", *entry.ID),
+		nil,
+	)
+	r.ServeHTTP(rec, req)
+	assert.Equal(t, 200, rec.Code)
+
+	var result models.Entry
+	err := json.Unmarshal(rec.Body.Bytes(), &result)
+	assert.NoError(t, err)
+	assert.Equal(t, entry.ID, result.ID)
+	assert.Equal(t, entry.URL, result.URL)
+	assert.Equal(t, true, result.IsDone)
+}
+
+func TestPostDoneEntry_存在しないIDを指定すると404を返す(t *testing.T) {
+	r, _ := NewRouter()
+	req, rec := testhelper.MakeRequest(t,
+		http.MethodPost,
+		"/entries/9999999/done",
+		nil,
+	)
+	r.ServeHTTP(rec, req)
+	assert.Equal(t, 404, rec.Code)
 }
