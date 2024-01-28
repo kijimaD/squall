@@ -11,13 +11,14 @@ import { HeaderLogo } from "./HeaderLogo";
 import HomeIcon from "@mui/icons-material/Home";
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { View, add, updateTitle, remove } from "../redux/viewSlice";
+import { myUseSelector } from "../redux/store";
 import { useEffect, useState } from "react";
 import { useEntries } from "../hooks/api/entry";
 
 export const SideMenu = () => {
-  const views = useSelector((state) => state.view.views);
+  const views = myUseSelector((state) => state.view.views);
   const dispatch = useDispatch();
 
   const newView = async () => {
