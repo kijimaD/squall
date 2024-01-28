@@ -129,7 +129,7 @@ function createView(url: string): number {
 function switchView(id: number) {
   const views = mainWindow
     .getBrowserViews()
-    .filter((view) => view.webContents.id == id);
+    .filter((view: BrowserView) => view.webContents.id == id);
   console.assert(views.length === 1);
   mainWindow.setTopBrowserView(views[0]);
   topView = views[0];
@@ -138,7 +138,7 @@ function switchView(id: number) {
 function removeView(id: number) {
   const views = mainWindow
     .getBrowserViews()
-    .filter((view) => view.webContents.id == id);
+    .filter((view: BrowserView) => view.webContents.id == id);
   console.assert(views.length === 1);
   // topViewが削除済みのものになるのを防ぐ
   mainWindow.removeBrowserView(views[0]);

@@ -64,8 +64,8 @@ export const SideMenu = () => {
     <>
       <HeaderLogo />
       <Container maxWidth="lg" sx={{ mt: 2, mb: 2 }} className="container">
-        <Grid container direction="row" spacing={2}>
-          <Grid item xs={12} sm={6} spacing={1}>
+        <Grid container direction="row">
+          <Grid item xs={12} sm={6}>
             <Container>
               <TextField
                 defaultValue={inputUrl}
@@ -73,7 +73,6 @@ export const SideMenu = () => {
                 size="small"
               />
               <Button
-                color="black"
                 style={{ justifyContent: "flex-start" }}
                 onClick={() => newView()}
               >
@@ -90,7 +89,7 @@ export const SideMenu = () => {
                 sx={{ maxWidth: 100 }}
                 type="number"
               />
-              <Button color="black" onClick={(e) => getEntries()}>
+              <Button onClick={(e) => getEntries()}>
                 Load
               </Button>
             </Container>
@@ -106,7 +105,7 @@ export const SideMenu = () => {
                 }}
               ></ListItemText>
             </ListItemButton>
-            {views.map((v, i) => {
+            {views.map((v: BrowserView, i: number) => {
               return (
                 <ListItemButton>
                   <Button
