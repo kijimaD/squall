@@ -3,6 +3,7 @@ import {
   Grid,
   Paper,
   Button,
+  ButtonGroup,
   TextField,
   ListItemButton,
   ListItemText,
@@ -80,7 +81,6 @@ export const SideMenu = () => {
                 onClick={() => newView()}
               >
                 <SearchIcon />
-                Go
               </Button>
             </Container>
 
@@ -109,15 +109,22 @@ export const SideMenu = () => {
             {views.map((v: View, i: number) => {
               return (
                 <ListItemButton key={i}>
-                  <Button
-                    onClick={() => {
-                      window.myAPI.invoke("removeView", { id: v.viewId });
-                      dispatch(remove(v.viewId));
-                    }}
+                  <ButtonGroup
+                    orientation="vertical"
+                    aria-label="vertical contained button group"
+                    variant="text"
                   >
-                    <CloseIcon fontSize="small" />
-                  </Button>
-                  <DoneButton viewId={v.viewId} dataId={v.dataId} />
+                    <Button
+                      size="small"
+                      onClick={() => {
+                        window.myAPI.invoke("removeView", { id: v.viewId });
+                        dispatch(remove(v.viewId));
+                      }}
+                    >
+                      <CloseIcon fontSize="small" />
+                    </Button>
+                    <DoneButton viewId={v.viewId} dataId={v.dataId} />
+                  </ButtonGroup>
                   <ListItemText
                     primary={v.title}
                     onClick={() => {
