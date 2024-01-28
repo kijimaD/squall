@@ -26,6 +26,7 @@ tags:
 paths:
   /:
     $ref: "./paths/root.yml"
-
   /entries:
     $ref: "./paths/entries.yml"
+  /entries/{entry_id}/done:
+    $ref: "./paths/entry_done.yml"

@@ -1,0 +1,13 @@
+post:
+  summary: エントリ既読化
+  description: エントリを既読にする
+  operationId: doneEntry
+  tags:
+    - Entry
+  parameters:
+    - $ref: "../components/parameters.yml#/entryIdParam"
+  responses:
+    '200':
+      $ref: "../components/responses.yml#/RespEntry"
+    default:
+      $ref: "../components/codes.yml#/500InternalServerError"
