@@ -3,6 +3,7 @@ package fetcher
 import (
 	"log"
 	"squall/models"
+	"time"
 
 	"github.com/mmcdole/gofeed"
 )
@@ -48,6 +49,7 @@ func FetchFeeds(feedSources feedSources, gf GetFeeder) error {
 				return err
 			}
 		}
+		time.Sleep(100 * time.Millisecond)
 	}
 	return nil
 }

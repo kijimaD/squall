@@ -27,10 +27,6 @@ func runSeed(_ *cli.Context) error {
 	}
 
 	var deps []factories.Dependency
-	_, deps = factories.MakeEntry(factories.Fields{"URL": "https://amazon.com"}, deps)
-	_, deps = factories.MakeEntry(factories.Fields{"URL": "https://google.com"}, deps)
-	_, deps = factories.MakeEntry(factories.Fields{"URL": "https://github.com"}, deps)
-	_, deps = factories.MakeEntry(factories.Fields{"URL": "https://github.com/kijimaD"}, deps)
 	_, deps = factories.MakeEntry(factories.Fields{"URL": "https://go.dev/"}, deps)
 	for _, m := range deps {
 		err := models.GetDB().Create(m).Error
