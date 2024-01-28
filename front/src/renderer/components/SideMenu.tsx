@@ -107,7 +107,7 @@ export const SideMenu = () => {
             </ListItemButton>
             {views.map((v: View, i: number) => {
               return (
-                <ListItemButton>
+                <ListItemButton key={i}>
                   <Button
                     onClick={() => {
                       window.myAPI.invoke("removeView", { id: v.viewId });
