@@ -11,6 +11,7 @@ import (
 	"squall/generated"
 	"squall/helper"
 	"squall/loghelper"
+	"time"
 
 	"github.com/getkin/kin-openapi/openapi3filter"
 	"github.com/getkin/kin-openapi/routers/gorillamux"
@@ -23,6 +24,7 @@ func NewRouter() (*gin.Engine, error) {
 	gin.DefaultWriter = io.Discard
 
 	r := gin.Default()
+	r.Use(CORS())
 	if validator, err := MakeValidateMiddleware(); err == nil {
 		r.Use(validator)
 	} else {
@@ -48,13 +50,6 @@ func NewRouter() (*gin.Engine, error) {
 	l = l.With("logtype", "resplog")
 	r.Use(sloggin.NewWithConfig(l, config))
 
-	r.Use(cors.New(cors.Config{
-		// アクセスを許可したいアクセス元
-		AllowOrigins: []string{
-			"http://localhost:3000",
-		},
-	}))
-
 	generated.RegisterHandlersWithOptions(
 		r,
 		&BaseHandler{},
@@ -66,6 +61,16 @@ func NewRouter() (*gin.Engine, error) {
 	)
 
 	return r, nil
+}
+
+func CORS() gin.HandlerFunc {
+	config := cors.Config{
+		AllowOrigins: []string{"http://localhost:3000"},
+		AllowMethods: []string{"GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"},
+		AllowHeaders: []string{"Content-Type", "Authorization"},
+		MaxAge:       12 * time.Hour,
+	}
+	return cors.New(config)
 }
 
 func MakeValidateMiddleware() (gin.HandlerFunc, error) {

@@ -105,6 +105,31 @@ func TestGetEntries_IDパラメータ指定で排除できる(t *testing.T) {
 	}
 }
 
+func TestGetEntries_未読エントリだけ返す(t *testing.T) {
+	var deps []factories.Dependency
+	_, deps = factories.MakeEntry(factories.Fields{"IsDone": false}, deps)
+	_, deps = factories.MakeEntry(factories.Fields{"IsDone": true}, deps)
+	for _, m := range deps {
+		assert.NoError(t, getDB().Create(m).Error)
+	}
+
+	r, _ := NewRouter()
+	req, rec := testhelper.MakeRequest(t,
+		http.MethodGet,
+		fmt.Sprintf("/entries"),
+		nil,
+	)
+	r.ServeHTTP(rec, req)
+	assert.Equal(t, 200, rec.Code)
+
+	var es []models.Entry
+	err := json.Unmarshal(rec.Body.Bytes(), &es)
+	assert.NoError(t, err)
+	for _, e := range es {
+		assert.False(t, e.IsDone)
+	}
+}
+
 // ================
 
 func TestPostDoneEntry_既読にできる(t *testing.T) {
