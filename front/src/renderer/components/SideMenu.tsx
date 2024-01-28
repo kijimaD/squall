@@ -10,12 +10,12 @@ import {
 import { HeaderLogo } from "./HeaderLogo";
 import HomeIcon from "@mui/icons-material/Home";
 import SearchIcon from "@mui/icons-material/Search";
-import CloseIcon from "@mui/icons-material/Close";
+import CheckIcon from "@mui/icons-material/Check";
 import { useDispatch } from "react-redux";
 import { View, add, updateTitle, remove } from "../redux/viewSlice";
 import { myUseSelector } from "../redux/store";
 import { useEffect, useState } from "react";
-import { useEntries } from "../hooks/api/entry";
+import { useGetEntries } from "../hooks/api/entry";
 
 export const SideMenu = () => {
   const views = myUseSelector((state) => state.view.views);
@@ -46,7 +46,7 @@ export const SideMenu = () => {
   const [reqCount, setReqCount] = useState(4);
 
   // TODO: レスポンスを型に入れる
-  const { data, isLoading, error, refetch } = useEntries(
+  const { data, isLoading, error, refetch } = useGetEntries(
     reqCount,
     views.map((v: View) => v.dataId),
   );
@@ -114,7 +114,7 @@ export const SideMenu = () => {
                       dispatch(remove(v.viewId));
                     }}
                   >
-                    <CloseIcon fontSize="small" />
+                    <CheckIcon fontSize="small" />
                   </Button>
                   <ListItemText
                     primary={v.title}

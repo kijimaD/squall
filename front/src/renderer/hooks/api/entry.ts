@@ -12,7 +12,7 @@ import { createApiConfiguration } from "./config";
 
 const entryApi = new EntryApi(createApiConfiguration());
 
-export const useEntries = (size: number, ignore_ids: number[]) => {
+export const useGetEntries = (size: number, ignore_ids: number[]) => {
   return useQuery({
     queryFn: async () =>
       await entryApi.getEntries(
