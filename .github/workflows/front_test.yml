@@ -1,0 +1,20 @@
+name: front_test
+
+on:
+  push:
+
+defaults:
+  run:
+    working-directory: front
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - run: npm install
+      - run: npm run package
+      - run: npm run make
+      - run: npm run publish

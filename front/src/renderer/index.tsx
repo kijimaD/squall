@@ -18,14 +18,11 @@ const theme = createTheme({
     },
   },
   palette: {
-    black: {
-      main: "#333333",
-    },
     background: {
       default: "#f8f8f8",
     },
     primary: {
-      main: "#000000",
+      main: "#333333",
     },
   },
 });

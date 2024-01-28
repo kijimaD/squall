@@ -8,22 +8,24 @@ import {
   ListItemText,
 } from "@mui/material";
 import { HeaderLogo } from "./HeaderLogo";
-import { EntryButton } from "./EntryButton";
 import HomeIcon from "@mui/icons-material/Home";
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { View, add, updateTitle, remove } from "../redux/viewSlice";
+import { myUseSelector } from "../redux/store";
 import { useEffect, useState } from "react";
 import { useEntries } from "../hooks/api/entry";
 
 export const SideMenu = () => {
-  const views = useSelector((state) => state.view.views);
+  const views = myUseSelector((state) => state.view.views);
   const dispatch = useDispatch();
 
   const newView = async () => {
     try {
-      const id = await window.myAPI.invoke("openNewView", { url: inputUrl });
+      const id: number = await window.myAPI.invoke("openNewView", {
+        url: inputUrl,
+      });
       const v: View = { viewId: id };
       dispatch(add(v));
     } catch (error) {
@@ -32,9 +34,9 @@ export const SideMenu = () => {
   };
 
   useEffect(() => {
-    window.myAPI.on("pageLoaded", (arg) => {
-      const id = arg[0];
-      const title = arg[1];
+    window.myAPI.on("pageLoaded", (arg: View) => {
+      const id = arg.viewId;
+      const title = arg.title;
       const v: View = { viewId: id, title: title };
       dispatch(updateTitle(v));
     });
@@ -44,9 +46,9 @@ export const SideMenu = () => {
   const [reqCount, setReqCount] = useState(4);
 
   // TODO: レスポンスを型に入れる
-  const { data, isLoading, _error, refetch } = useEntries(
+  const { data, isLoading, error, refetch } = useEntries(
     reqCount,
-    views.map((v) => v.dataId),
+    views.map((v: View) => v.dataId),
   );
   const getEntries = () => {
     data.data.map(async (v, _i) => {
@@ -64,8 +66,8 @@ export const SideMenu = () => {
     <>
       <HeaderLogo />
       <Container maxWidth="lg" sx={{ mt: 2, mb: 2 }} className="container">
-        <Grid container direction="row" spacing={2}>
-          <Grid item xs={12} sm={6} spacing={1}>
+        <Grid container direction="row">
+          <Grid item xs={12} sm={6}>
             <Container>
               <TextField
                 defaultValue={inputUrl}
@@ -73,7 +75,6 @@ export const SideMenu = () => {
                 size="small"
               />
               <Button
-                color="black"
                 style={{ justifyContent: "flex-start" }}
                 onClick={() => newView()}
               >
@@ -85,14 +86,12 @@ export const SideMenu = () => {
             <Container>
               <TextField
                 defaultValue={reqCount}
-                onChange={(e) => setReqCount(e.target.value)}
+                onChange={(e) => setReqCount(Number(e.target.value))}
                 size="small"
                 sx={{ maxWidth: 100 }}
                 type="number"
               />
-              <Button color="black" onClick={(e) => getEntries()}>
-                Load
-              </Button>
+              <Button onClick={(e) => getEntries()}>Load</Button>
             </Container>
 
             <ListItemButton>
@@ -106,7 +105,7 @@ export const SideMenu = () => {
                 }}
               ></ListItemText>
             </ListItemButton>
-            {views.map((v, i) => {
+            {views.map((v: View, i: number) => {
               return (
                 <ListItemButton>
                   <Button
