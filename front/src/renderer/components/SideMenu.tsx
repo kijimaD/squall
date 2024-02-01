@@ -13,6 +13,7 @@ import { HeaderLogo } from "./HeaderLogo";
 import HomeIcon from "@mui/icons-material/Home";
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
+import SaveIcon from "@mui/icons-material/Save";
 import { useDispatch } from "react-redux";
 import { View, add, updateTitle, remove } from "../redux/viewSlice";
 import { myUseSelector } from "../redux/store";
@@ -94,6 +95,16 @@ export const SideMenu = () => {
                 type="number"
               />
               <Button onClick={(e) => getEntries()}>Load</Button>
+              <Button
+                style={{ justifyContent: "flex-start" }}
+                onClick={() =>
+                  (window.location.href =
+                    "org-protocol://capture?template=L&url=https%3A%2F%2Fwww.google.com&title=google")
+                }
+              >
+                org-protocol
+                <SaveIcon />
+              </Button>
             </Container>
 
             <ListItemButton>
