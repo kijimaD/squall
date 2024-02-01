@@ -7,6 +7,7 @@ import {
   TextField,
   ListItemButton,
   ListItemText,
+  Tooltip,
 } from "@mui/material";
 import { HeaderLogo } from "./HeaderLogo";
 import HomeIcon from "@mui/icons-material/Home";
@@ -106,6 +107,7 @@ export const SideMenu = () => {
                 }}
               ></ListItemText>
             </ListItemButton>
+
             {views.map((v: View, i: number) => {
               return (
                 <ListItemButton key={i}>
@@ -120,15 +122,17 @@ export const SideMenu = () => {
                     aria-label="vertical contained button group"
                     variant="text"
                   >
-                    <Button
-                      size="small"
-                      onClick={() => {
-                        window.myAPI.invoke("removeView", { id: v.viewId });
-                        dispatch(remove(v.viewId));
-                      }}
-                    >
-                      <CloseIcon fontSize="small" />
-                    </Button>
+                    <Tooltip title="close">
+                      <Button
+                        size="small"
+                        onClick={() => {
+                          window.myAPI.invoke("removeView", { id: v.viewId });
+                          dispatch(remove(v.viewId));
+                        }}
+                      >
+                        <CloseIcon fontSize="small" />
+                      </Button>
+                    </Tooltip>
                     <DoneButton viewId={v.viewId} dataId={v.dataId} />
                   </ButtonGroup>
                 </ListItemButton>
