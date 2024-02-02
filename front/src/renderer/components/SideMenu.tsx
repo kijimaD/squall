@@ -7,11 +7,13 @@ import {
   TextField,
   ListItemButton,
   ListItemText,
+  Tooltip,
 } from "@mui/material";
 import { HeaderLogo } from "./HeaderLogo";
 import HomeIcon from "@mui/icons-material/Home";
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
+import SaveIcon from "@mui/icons-material/Save";
 import { useDispatch } from "react-redux";
 import { View, add, updateTitle, remove } from "../redux/viewSlice";
 import { myUseSelector } from "../redux/store";
@@ -44,8 +46,9 @@ export const SideMenu = () => {
     });
   }, []);
 
-  const [inputUrl, setInputUrl] = useState("https://github.com");
-  const [reqCount, setReqCount] = useState(3);
+  const [inputUrl, setInputUrl] = useState("");
+  const [currentTitle, setCurrentTitle] = useState("");
+  const [reqCount, setReqCount] = useState(5);
 
   // TODO: レスポンスを型に入れる
   const { data, isLoading, error, refetch } = useGetEntries(
@@ -55,7 +58,7 @@ export const SideMenu = () => {
   const getEntries = () => {
     data.data.map(async (v, _i) => {
       const id = await window.myAPI.invoke("openNewView", { url: v.url });
-      const view: View = { viewId: id, dataId: v.id };
+      const view: View = { viewId: id, dataId: v.id, url: v.url };
       dispatch(add(view));
     });
   };
@@ -71,11 +74,7 @@ export const SideMenu = () => {
         <Grid container direction="row">
           <Grid item xs={12} sm={6}>
             <Container>
-              <TextField
-                defaultValue={inputUrl}
-                onChange={(e) => setInputUrl(e.target.value)}
-                size="small"
-              />
+              <TextField value={inputUrl} size="small" />
               <Button
                 style={{ justifyContent: "flex-start" }}
                 onClick={() => newView()}
@@ -93,6 +92,19 @@ export const SideMenu = () => {
                 type="number"
               />
               <Button onClick={(e) => getEntries()}>Load</Button>
+              <Button
+                style={{ justifyContent: "flex-start" }}
+                onClick={() =>
+                  (window.location.href =
+                    "org-protocol://capture?template=L&url=" +
+                    inputUrl +
+                    "&title=" +
+                    currentTitle)
+                }
+              >
+                org-protocol
+                <SaveIcon />
+              </Button>
             </Container>
 
             <ListItemButton>
@@ -106,31 +118,42 @@ export const SideMenu = () => {
                 }}
               ></ListItemText>
             </ListItemButton>
+
             {views.map((v: View, i: number) => {
               return (
                 <ListItemButton key={i}>
+                  <ListItemText
+                    primary={v.title}
+                    onClick={() => {
+                      window.myAPI.invoke("changeTab", { id: v.viewId });
+
+                      const matchingView = views.find(
+                        (v2: View) => v.viewId === v2.viewId,
+                      );
+                      if (matchingView) {
+                        setInputUrl(matchingView.url);
+                        setCurrentTitle(matchingView.title);
+                      }
+                    }}
+                  />
                   <ButtonGroup
                     orientation="vertical"
                     aria-label="vertical contained button group"
                     variant="text"
                   >
-                    <Button
-                      size="small"
-                      onClick={() => {
-                        window.myAPI.invoke("removeView", { id: v.viewId });
-                        dispatch(remove(v.viewId));
-                      }}
-                    >
-                      <CloseIcon fontSize="small" />
-                    </Button>
+                    <Tooltip title="close">
+                      <Button
+                        size="small"
+                        onClick={() => {
+                          window.myAPI.invoke("removeView", { id: v.viewId });
+                          dispatch(remove(v.viewId));
+                        }}
+                      >
+                        <CloseIcon fontSize="small" />
+                      </Button>
+                    </Tooltip>
                     <DoneButton viewId={v.viewId} dataId={v.dataId} />
                   </ButtonGroup>
-                  <ListItemText
-                    primary={v.title}
-                    onClick={() => {
-                      window.myAPI.invoke("changeTab", { id: v.viewId });
-                    }}
-                  />
                 </ListItemButton>
               );
             })}
