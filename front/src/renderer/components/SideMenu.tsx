@@ -46,8 +46,9 @@ export const SideMenu = () => {
     });
   }, []);
 
-  const [inputUrl, setInputUrl] = useState("https://github.com");
-  const [reqCount, setReqCount] = useState(3);
+  const [inputUrl, setInputUrl] = useState("");
+  const [currentTitle, setCurrentTitle] = useState("");
+  const [reqCount, setReqCount] = useState(5);
 
   // TODO: レスポンスを型に入れる
   const { data, isLoading, error, refetch } = useGetEntries(
@@ -57,7 +58,7 @@ export const SideMenu = () => {
   const getEntries = () => {
     data.data.map(async (v, _i) => {
       const id = await window.myAPI.invoke("openNewView", { url: v.url });
-      const view: View = { viewId: id, dataId: v.id };
+      const view: View = { viewId: id, dataId: v.id, url: v.url };
       dispatch(add(view));
     });
   };
@@ -73,11 +74,7 @@ export const SideMenu = () => {
         <Grid container direction="row">
           <Grid item xs={12} sm={6}>
             <Container>
-              <TextField
-                defaultValue={inputUrl}
-                onChange={(e) => setInputUrl(e.target.value)}
-                size="small"
-              />
+              <TextField value={inputUrl} size="small" />
               <Button
                 style={{ justifyContent: "flex-start" }}
                 onClick={() => newView()}
@@ -99,7 +96,10 @@ export const SideMenu = () => {
                 style={{ justifyContent: "flex-start" }}
                 onClick={() =>
                   (window.location.href =
-                    "org-protocol://capture?template=L&url=https%3A%2F%2Fwww.google.com&title=google")
+                    "org-protocol://capture?template=L&url=" +
+                    inputUrl +
+                    "&title=" +
+                    currentTitle)
                 }
               >
                 org-protocol
@@ -126,6 +126,14 @@ export const SideMenu = () => {
                     primary={v.title}
                     onClick={() => {
                       window.myAPI.invoke("changeTab", { id: v.viewId });
+
+                      const matchingView = views.find(
+                        (v2: View) => v.viewId === v2.viewId,
+                      );
+                      if (matchingView) {
+                        setInputUrl(matchingView.url);
+                        setCurrentTitle(matchingView.title);
+                      }
                     }}
                   />
                   <ButtonGroup

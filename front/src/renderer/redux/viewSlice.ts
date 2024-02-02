@@ -4,6 +4,7 @@ export type View = {
   viewId: number;
   title?: string;
   dataId?: number;
+  url: string;
 };
 
 export const viewSlice = createSlice({
